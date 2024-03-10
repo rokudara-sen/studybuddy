@@ -1,0 +1,22 @@
+Allgemein
+Basic HTML / Bootstrap / CSS
+    PHP (Sessions, Users, Register, Login, usw.)
+    Datenbank (MySQL)
+    JavaScript
+Protokoll
+
+TEST
+
+Matteo
+
+
+Michi
+
+
+Yann
+
+
+Theo
+
+
+Beni
