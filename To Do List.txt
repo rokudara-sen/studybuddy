@@ -1,22 +1,27 @@
 Allgemein
 Basic HTML / Bootstrap / CSS
     PHP (Sessions, Users, Register, Login, usw.)
-    Datenbank (MySQL)
     JavaScript
-Protokoll
-
-TEST
+Messenger (HTML BASIC (DESIGN))
+Matching System
 
 Matteo
-
+-FAQ (HTML BASIC (DESIGN))
+-Footer
 
 Michi
-
-
-Yann
-
-
-Theo
-
+-Protokoll
+-Users / Login / Register / Sessions
+-Impressum (HTML BASIC (DESIGN))
+-Datenbank (MySQL)
 
 Beni
+-Users / Login / Register / Sessions
+-Datenbank (MySQL)
+
+Theo
+-Profil (HTML BASIC (DESIGN))
+-Settings (HTML BASIC (DESIGN))
+
+Yann
+-Home Page (Wenn Eingeloggt / Nicht Eingeloggt) (HTML BASIC)
