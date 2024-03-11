@@ -20,8 +20,13 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
         case 'home':
             include 'inc/home.php';
             break;
+        case 'faq':
+            include 'inc/faq.php';
+            break;
     }
 }
+
+include 'inc/footer.php';
 ?>
 
 <script src="res/js/script.js"></script>
