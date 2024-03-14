@@ -1,0 +1,32 @@
+DEFINITION OF REQUIREMENTS
+
+1. nicht eingeloggte/registrierte User sehen eine homepage mit login und registrierungsmöglichkeit gesamter Seitencontent nicht sichtbar
+
+2. registrierung erfolgt mit email-adresse (*@technikum-wien.at), Vor-/Nachname, username und passwort login mit username/email und passwort
+
+3. nach registrierung gelangt man auf sein (noch leeres) Profil, dort müssen andere notwendige Daten (Studiengang, Semester, Alter, about section, gesuchte Fächer, Profilbild) ergänzt werden, um   andere User sehen zu können
+nach login gelangt man direkt auf die main page (swipe section, message section, navbar)
+
+4. swipe-section: dem User werden andere registrierte User angezeigt, einsehbar sind öffentlich sichtbare Abschnitte des Profils (Fächer für die studybuddy gesucht wird, Studiengang, Semester, Alter, Profilbild)
+
+5. message-section: hier scheinen chats mit anderen Usern auf, mit denen man "gematcht" hat
+
+6. navbar: enthält Profilbearbeitung, logout button bzw. login/register wenn ausgeloggt, home button (zurück zur main page)
+
+7. matching: in swipe-section kann man "likes" an andere User vergeben, mit denen man gerne lernen würde
+=> wenn zwei User sich gegenseitig "liken" werden sie einander als chat in der jeweiligen message-section hinzugefügt
+
+optional:
+
+- likes received: User haben section in der sie sehen können, welche anderen User "likes" an sie vergeben haben, so kann man dann direkt jene User zurückliken
+
+- passwort reset anfordern: wenn ein User sein Passwort vergessen haben sollte, kann er durch angabe seines/r usernames/email auf der login-page ein formular zur Passwortzurücksetzung auf seine registrierte email geschickt bekommen
+
+- etwaige andere premiumfeatures
+
+
+EFFORT ESTIMATION
+
+4 Wochenstunden Soloarbeit pro Person
+jeden Sonntag 16-18 Uhr Teammeetings
+jederzeit Möglichkeit Einberufung spontaner Teambesprechung
