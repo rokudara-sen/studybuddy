@@ -28,3 +28,29 @@
     max-width: fit-content;
     margin-left: auto;
 }
+
+/*  IMPRINT STYLE */
+
+ul{
+    list-style-type: none;
+    padding: 0;
+}
+li{
+    margin-bottom: 5px;
+}
+.indented{
+    margin-left: 25px;
+}
+
+.imprint-style {
+    max-width: 600px; /* Maximale Breite des Impressums */
+    margin: 0 auto; /* Zentriert das Impressum */
+    text-align: left; /* Links ausrichten */
+    width: calc(100% - 200px);
+}
+.imprint-headline-1{
+    font-size: xx-large;
+}
+.imprint-headline-2{
+    font-size: x-large;
+}

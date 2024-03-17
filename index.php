@@ -33,6 +33,9 @@ if (isset($_GET['page']) && !empty($_GET['page'])) {
         case 'login':
             include 'inc/login.php';
             break;
+        case 'imprint':
+            include 'inc/imprint.php';
+            break;
        // default:
             
     }
