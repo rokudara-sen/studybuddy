@@ -4,6 +4,9 @@
 
 <head>
     <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    
+
     <title>Study Buddy</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="res/css/style.css">
@@ -13,18 +16,28 @@
 <body>
 
 <?php
+require_once 'config/session.php';
 include 'inc/header.php';
 
-if (isset($_GET['action']) && !empty($_GET['action'])) {
-    switch ($_GET['action']) {
+if (isset($_GET['page']) && !empty($_GET['page'])) {
+    switch ($_GET['page']) {
         case 'home':
             include 'inc/home.php';
             break;
+        case 'profile':
+            include 'inc/profile.php';
+            break;
+        case 'registration':
+            include 'inc/registration.php';
+            break;
+        case 'login':
+            include 'inc/login.php';
+            break;
+       // default:
+            
     }
 }
 ?>
 
-<script src="res/js/script.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>
