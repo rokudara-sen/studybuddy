@@ -21,28 +21,28 @@ body {
     width: 100%;
 }
 
-.card {}
-
 .page-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 .nav.flex-column {
-    min-width: 200px;
-    height: 100vh;
-    position: fixed;
+    width: 100%;
+    height: auto;
+    position: relative;
 }
 
 .main-content {
-    margin-left: 200px;
-    width: calc(100% - 200px);
+    margin-left: 0;
+    width: 100%;
 }
 
 .aligned-navbar {
-    max-width: fit-content;
-    margin-left: auto;
+    max-width: 100%;
+    margin-left: 0;
 }
+
+
 
 /*  IMPRINT STYLE */
 
