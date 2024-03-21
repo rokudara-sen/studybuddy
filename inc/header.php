@@ -6,9 +6,9 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Profile</a>
-        </li>
+        <!--<li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Profile</a> 2 mal profile
+        </li>-->
         <li class="nav-item">
           <a class="nav-link" href="index.php?page=registration">Registration</a>
         </li>
