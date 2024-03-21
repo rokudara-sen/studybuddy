@@ -6,7 +6,7 @@
           <a class="nav-link" aria-current="page" href="#">Impressum</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="?action=faq">FAQ</a>
+          <a class="nav-link" href="?page=faq">FAQ</a>
         </li>
       </ul>
     </div>
