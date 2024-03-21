@@ -27,6 +27,9 @@ if (isset($_GET['page']) && !empty($_GET['page'])) {
         case 'profile':
             include 'inc/profile.php';
             break;
+        case 'settings':
+            include 'inc/settings.php';
+            break;
         case 'registration':
             include 'inc/registration.php';
             break;
