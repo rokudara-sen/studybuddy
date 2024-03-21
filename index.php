@@ -15,9 +15,10 @@
 </head>
 <body>
 
+<?php include 'inc/header.php'?>
+<div id="content">
 <?php
 require_once 'config/session.php';
-include 'inc/header.php';
 
 if (isset($_GET['page']) && !empty($_GET['page'])) {
     switch ($_GET['page']) {
@@ -39,11 +40,14 @@ if (isset($_GET['page']) && !empty($_GET['page'])) {
         case 'imprint':
             include 'inc/imprint.php';
             break;
+        case 'faq':
+            include 'inc/faq.php';
        // default:
             
     }
 }
 ?>
-
+</div>
+<?php include 'inc/footer.php'; ?>
 </body>
 </html>
