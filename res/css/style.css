@@ -1,3 +1,19 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#content {
+    flex-grow: 1;
+}
+
+
 .center-container {
     display: flex;
     justify-content: center;
@@ -6,25 +22,80 @@
     width: 100%;
 }
 
-.card {}
-
 .page-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 .nav.flex-column {
-    min-width: 200px;
-    height: 100vh;
-    position: fixed;
+    width: 100%;
+    height: auto;
+    position: relative;
 }
 
 .main-content {
-    margin-left: 200px;
-    width: calc(100% - 200px);
+    margin-left: 0;
+    width: 100%;
 }
 
 .aligned-navbar {
-    max-width: fit-content;
-    margin-left: auto;
+    max-width: 100%;
+    margin-left: 0;
+}
+
+details {
+    padding: .75em .75em 0;
+    margin-top: 40px;
+}
+
+summary {
+    font-weight: bold;
+    margin: -.75em -.75em 0;
+    padding: .75em;
+    background-color: dimgray;
+    color: white;
+}
+
+details[open] {
+    padding: 12px;
+    background-color: grey;
+    color: white;
+}
+
+details[open] summary {
+    margin-bottom: 10px;
+}
+
+#helpDiv {
+    margin: 5%;
+    margin-top: 15px;
+    margin-bottom: 60px;
+}
+
+details h1 {
+    align-self: center;
+    margin-bottom: 15px;
+}
+
+
+@media (min-width: 768px) {
+    .page-container {
+        flex-direction: row;
+    }
+
+    .nav.flex-column {
+        min-width: 200px;
+        height: 100vh;
+        position: fixed;
+    }
+
+    .main-content {
+        margin-left: 200px;
+        width: calc(100% - 200px);
+    }
+
+    .aligned-navbar {
+        max-width: fit-content;
+        margin-left: auto;
+    }
 }
