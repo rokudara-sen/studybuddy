@@ -65,9 +65,11 @@ li{
 }
 .imprint-headline-1{
     font-size: xx-large;
+    text-align: center;
 }
 .imprint-headline-2{
     font-size: x-large;
+    text-align: center;
 }
 
 details {
