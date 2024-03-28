@@ -18,10 +18,13 @@
 
 <body>
 
-<?php include 'inc/header.php'?>
+<?php 
+require 'config/session.php';
+include 'inc/header.php';
+?>
 <div id="content">
 <?php
-require_once 'config/session.php';
+
 
 if (isset($_GET['page']) && !empty($_GET['page'])) {
     switch ($_GET['page']) {
@@ -40,12 +43,17 @@ if (isset($_GET['page']) && !empty($_GET['page'])) {
         case 'login':
             include 'inc/login.php';
             break;
+        case 'logout':
+            include 'config/logout.php';
+            break;
         case 'imprint':
             include 'inc/imprint.php';
             break;
         case 'faq':
             include 'inc/faq.php';
-       // default:
+       default:
+            include 'inc/home.php';
+            break;
             
     }
 }

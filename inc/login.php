@@ -12,7 +12,7 @@
 <div class="">    
   
     <?php if (isset($_GET["register"])){
-      echo "<div class='loginsuccess'>Register was successful!</div>";
+      echo "<div>Register was successful!</div>";
     } ?>
     <form class="p-3 mt-3" action="config/login_verify.php" method="POST">
         <div class="form-field d-flex align-items-center">
@@ -26,13 +26,13 @@
         <button class="btn mt-3">Login</button>
     </form>
     <div class="text-center fs-6">
-        New in Space? You can register <a href="index.php?page=reg">here!</a>
+        No account yet? You can register <a href="index.php?page=tegistration">here!</a>
         <br>
     </div>
     <?php
     if (isset($_GET['error'])) {
       $error = $_GET['error'];
-      echo "<p class='fehlermeldung'>$error!</p>";
+      echo "<p>$error!</p>";
     }
     ?>
 </div>

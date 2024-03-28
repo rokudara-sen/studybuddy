@@ -9,9 +9,23 @@
         <!--<li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Profile</a> 2 mal profile
         </li>-->
-        <li class="nav-item">
-          <a class="nav-link" href="index.php?page=registration">Registration</a>
-        </li>
+        <?php
+          if($_SESSION['userrole'] === "anonym") {
+          echo '<li class="nav-item">
+            <a class="nav-link" href="index.php?page=registration">Registration</a>
+          </li>';
+          echo '<li class="nav-item">
+          <a class="nav-link" href="index.php?page=login">Login</a>
+          </li>';
+          } 
+       ?>
+       <?php
+          if($_SESSION['userrole'] === "admin" || $_SESSION['userrole'] === "guest") {
+          echo '<li class="nav-item">
+            <a class="nav-link" href="index.php?page=logout">Logout</a>
+          </li>';
+          } 
+       ?>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             More
