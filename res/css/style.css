@@ -44,7 +44,7 @@ body {
 
 /*  PROFILE STYLE */
 
-#profileName, #profileMajor, #profileAge, #profileText, #profilePic {
+#profileName, #profileMajor, #profileAge, #profileText, #profilePic, #profileVorname, #profileNachname, #profileEmail {
     border-color: #555;
     border-width: 1.5px;
 }
@@ -57,7 +57,7 @@ body {
     width: 25%;
 }
 
-#profileName:focus, #profileMajor:focus, #profileAge:focus, #profileText:focus, #profilePic:focus{
+#profileName:focus, #profileMajor:focus, #profileAge:focus, #profileText:focus, #profilePic:focus, #profileVorname:focus, #profileNachname:focus, #profileEmail:focus{
     border-color: #777;
     box-shadow: 0 0 0 0.25rem rgba(102, 102, 102, 0.25);
 }

@@ -31,7 +31,6 @@
             More
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="index.php?page=settings">Settings</a></li>
             <li><a class="dropdown-item" href="index.php?page=profile">Profile</a></li>
             <li><a class="dropdown-item" href="#">Support</a></li>
           </ul>
