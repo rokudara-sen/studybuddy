@@ -1,8 +1,8 @@
 <?php
-    // if ($_SESSION['userrole'] == "anonym") {
-    //  header("Location: index.php?page=home");
-     // exit();
-    //}
+    if ($_SESSION['userrole'] == "anonym") {
+    //header("Location: index.php?page=home");
+     //exit();
+    }
 ?>
 
 <!doctype html>
@@ -51,8 +51,7 @@
         <div class="mb-3">
             <input type="email" class="form-control" name="profileEmail" id="profileEmail" placeholder="Email ändern">
         </div>
-        <br>
-        <button class="form-control" id="profileButton" type="submit">Ändern</button>
+
     </form>
     </div>
   </div>
