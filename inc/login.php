@@ -1,38 +1,28 @@
-<?php
-//login daweil nur mit username
+<div class="login-container">
+    <div class="login-box">
+        <?php if (isset($_GET["register"])): ?>
+            <div class="success">Register was successful!</div>
+        <?php endif; ?>
 
-  // if ($_SESSION['userrole'] == "guest") {
-    //  header("Location: index.php?page=home");
-  //    exit();
- //}
-?>
+        <form class="p-3 mt-3" action="config/login_verify.php" method="POST">
+            <div class="form-field">
+                <span class="far fa-user"></span>
+                <input type="text" name="username" id="username" placeholder="Username" required>
+            </div>
+            <div class="form-field">
+                <span class="fas fa-key"></span>
+                <input type="password" id="password" name="password" placeholder="Passwort" required>
+            </div>
+            <button type="submit" class="btn btn-login">Login</button>
+        </form>
 
-<!--  ab jetzt anmeldeform -->
-
-<div class="">    
-  
-    <?php if (isset($_GET["register"])){
-      echo "<div>Register was successful!</div>";
-    } ?>
-    <form class="p-3 mt-3" action="config/login_verify.php" method="POST">
-        <div class="form-field d-flex align-items-center">
-            <span class="far fa-user"></span>
-            <input type="text" name="username" id="username" placeholder="Username" required>
+        <div class="text-center fs-6 login-message">
+            No account yet? You can register <a href="index.php?page=registration">here!</a>
+            <br>
         </div>
-        <div class="form-field d-flex align-items-center">
-            <span class="fas fa-key"></span>
-            <input type="password" id="password" name="password" placeholder="Passwort" required>
-        </div>
-        <button class="btn mt-3">Login</button>
-    </form>
-    <div class="text-center fs-6">
-        No account yet? You can register <a href="index.php?page=tegistration">here!</a>
-        <br>
+
+        <?php if (isset($_GET['error'])): ?>
+            <div class="error"><?php echo htmlspecialchars($_GET['error']); ?></div>
+        <?php endif; ?>
     </div>
-    <?php
-    if (isset($_GET['error'])) {
-      $error = $_GET['error'];
-      echo "<p>$error!</p>";
-    }
-    ?>
 </div>
