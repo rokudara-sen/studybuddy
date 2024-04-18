@@ -1,5 +1,4 @@
 <?php
-session_start(); // Startet die PHP-Session
 
 // Initialisiert die Nachrichtenliste, falls noch nicht gesetzt
 if (!isset($_SESSION['messages'])) {
@@ -25,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['message'])) {
 
 <body>
     <div class="container mt-4">
-        <h2>Chatverlauf:</h2>
+        <h2>Chat history:</h2>
         <div class="chat-messages p-3 bg-light" style="height: 300px; overflow-y: scroll;">
             <?php
             // Anzeigen aller gespeicherten Nachrichten
@@ -42,10 +41,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['message'])) {
         <h1>Messenger</h1>
         <form method="post" class="mb-3">
             <div class="mb-3">
-                <label for="message" class="form-label">Nachricht:</label>
+                <label for="message" class="form-label">Message:</label>
                 <textarea id="message" name="message" rows="3" class="form-control"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Senden</button>
+            <button type="submit" class="btn btn-primary">Send</button>
         </form>
     </div>
 
