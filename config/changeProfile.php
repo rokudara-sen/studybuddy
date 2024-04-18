@@ -2,11 +2,13 @@
 //nur idee
 require_once 'functions.php';
 require('dbaccess.php');
+$username = $_SESSION['username'];
 if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_POST['profileNachname'])) 
 {   
     $profileNachname = sanitizeInput($_POST['profileNachname']);
-    $stmt = $conn->prepare("UPDATE users SET nachname = ? WHERE username = ?");
-    $stmt->bind_param("ss", $profileNachname, $_SESSION['username']);
+    $sql = "UPDATE users SET nachname = ? WHERE username = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ss", $profileNachname, $username);
     if ($stmt->execute()) {
         echo "Daten erfolgreich eingefügt.";
     } else {
@@ -17,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_POST['profileVorname']))
 {   
     $profileVorname = sanitizeInput($_POST['profileVorname']);
     $stmt = $conn->prepare("UPDATE users SET vorname = ? WHERE username = ?");
-    $stmt->bind_param("ss", $profileVorname, $_SESSION['username']);
+    $stmt->bind_param("ss", $profileVorname, $username);
     if ($stmt->execute()) {
         echo "Daten erfolgreich eingefügt.";
     } else {
@@ -71,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_POST['profileEmail']))
         }
     }else
     {
-        echo "<script type='text/javascript'>alert('Diese Email gibt es schon!!');</script>";
+        header("Location: ../index.php?page=profile");
     }
 }
 if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_POST['profileName'])) 
@@ -88,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_POST['profileName']))
         }
     }else
     {
-        echo "<script type='text/javascript'>alert('Diesen Usernamen gibt es schon!!');</script>";
+        header("Location: ../index.php?page=profile");
     }
 }
 
