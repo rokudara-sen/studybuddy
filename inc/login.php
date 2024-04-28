@@ -26,7 +26,7 @@
         <button class="btn mt-3">Login</button>
     </form>
     <div class="text-center fs-6">
-        No account yet? You can register <a href="index.php?page=tegistration">here!</a>
+        No account yet? You can register <a href="index.php?page=registration">here!</a>
         <br>
     </div>
     <?php
