@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 17. Mrz 2024 um 17:27
--- Server-Version: 10.4.32-MariaDB
--- PHP-Version: 8.2.12
+-- Erstellungszeit: 18. Apr 2024 um 18:16
+-- Server-Version: 10.4.28-MariaDB
+-- PHP-Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -35,16 +35,20 @@ CREATE TABLE `users` (
   `password` varchar(256) NOT NULL,
   `email` varchar(256) NOT NULL,
   `userTyp` varchar(12) NOT NULL DEFAULT 'guest',
-  `userStatus` varchar(12) NOT NULL DEFAULT 'active'
+  `userStatus` varchar(12) NOT NULL DEFAULT 'active',
+  `age` int(11) NOT NULL,
+  `major` varchar(40) NOT NULL,
+  `profiletext` varchar(1999) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Daten für Tabelle `users`
 --
 
-INSERT INTO `users` (`userID`, `username`, `vorname`, `nachname`, `password`, `email`, `userTyp`, `userStatus`) VALUES
-(6, 'admin1', 'Beni', 'Zel', '$2y$10$SODqPgoMJAyS7WZD3njIk.hH1Fr4ILIArNSTQNrFZO3MMI8xYL6Te', 'admin@gmai.com', 'guest', 'active');
---passwort ist "admin1"
+INSERT INTO `users` (`userID`, `username`, `vorname`, `nachname`, `password`, `email`, `userTyp`, `userStatus`, `age`, `major`, `profiletext`) VALUES
+(6, 'admin1', 'Beni', 'Zel', '$2y$10$SODqPgoMJAyS7WZD3njIk.hH1Fr4ILIArNSTQNrFZO3MMI8xYL6Te', 'admin@gmai.com', 'guest', 'active', 0, '', ''),
+(10, 'theo', 'Theo', 'Wendel', '$2y$10$x1imLMNGbSuPOSg083rm7eL8EHYvL6/iwQoKXPD8M/p2toVdp3hWi', 'theo@theo', 'guest', 'active', 24, 'Informatik', 'Das ist eine about-Sektion');
+
 --
 -- Indizes der exportierten Tabellen
 --
@@ -63,7 +67,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT für Tabelle `users`
 --
 ALTER TABLE `users`
-  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
