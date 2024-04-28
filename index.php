@@ -51,6 +51,10 @@ if (isset($_GET['page']) && !empty($_GET['page'])) {
             break;
         case 'faq':
             include 'inc/faq.php';
+            break;
+        case 'messenger':
+            include 'inc/messenger.php';
+            break;
        default:
             include 'inc/home.php';
             break;
