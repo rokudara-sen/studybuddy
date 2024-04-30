@@ -35,7 +35,6 @@ CREATE TABLE `users` (
   `password` varchar(256) NOT NULL,
   `email` varchar(256) NOT NULL,
   `userTyp` varchar(12) NOT NULL DEFAULT 'guest',
-  `userStatus` varchar(12) NOT NULL DEFAULT 'active',
   `age` int(11) NOT NULL,
   `major` varchar(40) NOT NULL,
   `profiletext` varchar(1999) NOT NULL

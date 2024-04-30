@@ -55,10 +55,19 @@ if (isset($_GET['page']) && !empty($_GET['page'])) {
         case 'messenger':
             include 'inc/messenger.php';
             break;
-       default:
-            include 'inc/home.php';
+        case 'userverwaltung':
+            include 'inc/admin_overview.php';
             break;
-            
+        case 'admin_edit_user':
+            include 'inc/admin_edit_user.php';
+            break;
+        case 'admin_change_password':
+            include 'inc/admin_change_password.php';
+            break;
+        default:
+                include 'inc/home.php';
+                break;
+                
     }
 }
 ?>

@@ -11,24 +11,21 @@
                 </li>
                 <?php
                 if ($_SESSION['userrole'] === "anonym") {
-                    echo '<li class="nav-item">
-            <a class="nav-link" href="index.php?page=registration">Registration</a>
-          </li>';
-                    echo '<li class="nav-item">
-          <a class="nav-link" href="index.php?page=login">Login</a>
-          </li>';
-                }
-                ?>
-                <?php
-                if ($_SESSION['userrole'] === "admin" || $_SESSION['userrole'] === "guest") {
-                    echo '<li class="nav-item">
-            <a class="nav-link" href="index.php?page=logout">Logout</a>
-          </li>';
-                }
-                ?>
+                    echo '<li class="nav-item"><a class="nav-link" href="index.php?page=registration">Registration</a></li>';
+                    echo '<li class="nav-item"><a class="nav-link" href="index.php?page=login">Login</a></li>';
+                }?>
                 <li class="nav-item">
-                    <a class="nav-link" href="index.php?page=messenger">Messenger</a> <!-- Home is now a nav-link -->
+                    <a class="nav-link" href="index.php?page=messenger">Messenger</a>
                 </li>
+                <?php
+                if ($_SESSION['userrole'] === "admin" ||  $_SESSION['userrole'] === "guest") {
+                    echo '<li class="nav-item"><a class="nav-link" href="index.php?page=profile">Profil</a></li>';
+                }
+                if ($_SESSION['userrole'] === "admin") {
+                    echo '<li class="nav-item"><a class="nav-link" href="index.php?page=userverwaltung">Userverwaltung</a></li>';
+                } if ($_SESSION['userrole'] === "admin" || $_SESSION['userrole'] === "guest") {
+                    echo '<li class="nav-item"><a class="nav-link" href="index.php?page=logout">Logout</a></li>';
+                }?>
             </ul>
         </div>
     </div>

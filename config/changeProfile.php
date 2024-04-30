@@ -2,9 +2,10 @@
 require_once 'functions.php';
 require('dbaccess.php');
 require_once 'session.php';
-$username = $_SESSION['username'];
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") 
-{   
+{ 
+    $username = $_SESSION['username'];  
     if(empty($_POST['profileNachname']) == false)
     {
         $profileNachname = sanitizeInput($_POST['profileNachname']);
