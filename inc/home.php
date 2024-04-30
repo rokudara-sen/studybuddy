@@ -12,15 +12,6 @@ if (isset($_GET['logout'])) {
 $isLoggedIn = isset($_SESSION['loggedin']) && $_SESSION['loggedin'];
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
-</head>
-<body>
-
 <div class="center-container">
     <div class="card text-center text-bg-dark" style="width: 50rem;">
         <div class="card-header">
@@ -48,8 +39,3 @@ $isLoggedIn = isset($_SESSION['loggedin']) && $_SESSION['loggedin'];
         </div>
     </div>
 </div>
-
-<p><a href="?login=true">Log In</a> | <a href="?logout=true">Log Out</a></p>
-
-</body>
-</html>

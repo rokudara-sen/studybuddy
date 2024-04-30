@@ -257,6 +257,67 @@ body {
 /*------------------------------------ Registration end ------------------------------------ */
 
 
+/*------------------------------------ admin overview Start------------------------------------ */
+.container-admin-overview {
+    width: 90%;
+    margin: auto;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow-x: auto;
+}
+
+.table-overview {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.th-overview, .td-overview {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.th-overview {
+    background-color: #f2f2f2;
+}
+
+.booking-container-overview {
+    margin-top: 30px;
+    margin-bottom: 70px;
+}
+
+.booking-table-overview {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.booking-th-overview, .booking-td-overview {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.booking-th-overview {
+    background-color: #f2f2f2;
+}
+
+.a-overview {
+    text-decoration: none;
+    color: #3498db;
+}
+
+.admin-page-overview h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+/*------------------------------------ admin overview end------------------------------------ */
+
 /*------------------------------------ Footer start ------------------------------------ */
 ul {
     list-style-type: none;
