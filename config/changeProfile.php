@@ -5,6 +5,42 @@ require_once 'session.php';
 $username = $_SESSION['username'];
 if ($_SERVER["REQUEST_METHOD"] === "POST") 
 {   
+    if(empty($_FILES['profilePic']['name']) == false)
+    {
+        $uploadErfolg = "";
+        $uploadError = "";
+        $fileChecker = 1;
+        $file_info = new finfo(FILEINFO_MIME_TYPE);
+        $mime_type = $file_info->file($_FILES['profilePic']['tmp_name']);
+        $allowed_image_types = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+        if(in_array($mime_type, $allowed_image_types) == true) {
+            $uploadErfolg = "Datei ist ein Bild!";
+        } else {
+            $uploadError = "Datei ist kein Bild. ";
+            $fileChecker = 0;
+        }
+
+        if ($fileChecker == 0) {
+            echo "Datei konnte nicht hochgeladen werden.";
+          } else {
+            if (move_uploaded_file($_FILES['profilePic']['tmp_name'], "../res/img/".$_FILES['profilePic']['name'])) {
+              $uploadErfolg = $uploadErfolg . "Die Datei ". htmlspecialchars( basename( $_FILES['profilePic']['name'])). " wurde hochgeladen!";
+            } else {
+              $uploadError = $uploadError . "Datei konnte leider nicht hochgeladen werden.";
+            }
+          }
+        $path = "../res/img/".$_FILES['profilePic']['name'];
+        $sql = "UPDATE users SET picturepath = ? WHERE username = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ss", $path, $username);
+        if ($stmt->execute()) {
+            echo "Daten erfolgreich eingefügt.";
+        } else {
+            echo "Fehler beim Einfügen der Daten: " . $stmt->error;
+        } 
+        $stmt->close();
+        $conn->close();
+    }
     if(empty($_POST['profileNachname']) == false)
     {
         $profileNachname = sanitizeInput($_POST['profileNachname']);
@@ -15,7 +51,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
             echo "Daten erfolgreich eingefügt.";
         } else {
             echo "Fehler beim Einfügen der Daten: " . $stmt->error;
-        }  
+        } 
+        $stmt->close();
+        $conn->close(); 
     }
     if(empty($_POST['profileVorname']) == false)
     {
@@ -27,6 +65,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
         } else {
             echo "Fehler beim Einfügen der Daten: " . $stmt->error;
         }
+        $stmt->close();
+        $conn->close();
     }
     if(empty($_POST['profileAge']) == false)
     {
@@ -37,7 +77,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
             echo "Daten erfolgreich eingefügt.";
         } else {
             echo "Fehler beim Einfügen der Daten: " . $stmt->error;
-        }   
+        }  
+        $stmt->close();
+        $conn->close(); 
     }
     if(empty($_POST['profileText']) == false)
     {
@@ -49,6 +91,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
         } else {
             echo "Fehler beim Einfügen der Daten: " . $stmt->error;
         }
+        $stmt->close();
+        $conn->close();
     }
     if(empty($_POST['profileMajor']) == false)
     {
@@ -60,6 +104,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
         } else {
             echo "Fehler beim Einfügen der Daten: " . $stmt->error;
         }
+        $stmt->close();
+        $conn->close();
     }
     if(empty($_POST['profileEmail']) == false)
     {
@@ -77,6 +123,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
         {
             header("Location: ../index.php?page=profile");
         }
+        $stmt->close();
+        $conn->close();
     }
     if(empty($_POST['profileName']) == false)
     {
@@ -95,10 +143,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
         {
             header("Location: ../index.php?page=profile");
         }
+        $stmt->close();
+        $conn->close();
     }
+  
 }
-$stmt->close();
-$conn->close();
 header("Location: ../index.php?page=profile");
-exit();
+exit();  
+
 ?>

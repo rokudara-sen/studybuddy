@@ -19,7 +19,7 @@
   <div class="row">
     <div class="col-md-6">
     <h2 class="p-3 mt-3" >Profil ändern</h2>
-    <form class="p-3 mt-3" action="config/changeProfile.php" method="post">
+    <form class="p-3 mt-3" action="config/changeProfile.php" method="post" enctype="multipart/form-data">
         <div class="mb-3">
             <input type="text" class="form-control" name="profileName" id="profileName" placeholder="Profilname/Username ändern">
         </div>
