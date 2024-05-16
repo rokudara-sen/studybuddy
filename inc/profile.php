@@ -5,11 +5,12 @@ if ($_SESSION['userrole'] == "anonym") {
 }
 ?>
 
+
 <div class="container">
     <div class="row">
         <div class="col-md-6">
             <h2 class="p-3 mt-3">Profil ändern</h2>
-            <form class="p-3 mt-3" action="config/changeProfile.php" method="post" enctype="multipart/form-data">
+            <form class="p-3 mt-3" action="config/changeProfile.php" method="post">
                 <div class="mb-3">
                     <input type="text" class="form-control" name="profileName" id="profileName" placeholder="Profilname/Username ändern">
                 </div>
@@ -60,26 +61,6 @@ if ($_SESSION['userrole'] == "anonym") {
                 <br>
                 <button class="form-control" type="submit" name="changePassword">Passwort ändern</button>
             </form>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <h2 class="p-3 mt-3">Profil preview</h2>
-            <div class="center-container">
-                <div class="card text-center text-bg-dark" style="width: 50rem;">
-                    <div class="card-header">
-                        <?php echo $row['username']?> | <?php echo $row['age']?> | <?php echo $row['major']?>
-                    </div>
-                    <img src="res/img/<?php echo $row['picturepath']?>" class="card-img-top img-fluid" alt="kein Profilbild">
-                    <div class="card-body">
-                        <p class="card-text"><?php echo $row['profiletext']?></p>
-                     </div>
-                    <div class="card-body">
-                        <a href="#" class="btn btn-primary">Send Like</a>
-                        <a href="#" class="btn btn-primary">Go Next</a>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
