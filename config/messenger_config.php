@@ -1,14 +1,12 @@
 <?php
-// Start the session and include database access
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-require 'config/dbaccess.php';
+require 'dbaccess.php';
 
-// Function to handle message posting
 function postMessage() {
     global $conn;
-    if (isset($_SESSION['userId']) && $_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['message'])) {
+    if (isset($_SESSION['userId'])) {
         $message = htmlspecialchars($_POST['message']);
         $to_user_id = $_POST['to_user_id'];
         $user_id = $_SESSION['userId'];
@@ -18,13 +16,12 @@ function postMessage() {
     }
 }
 
-// Function to fetch messages
-function fetchMessages() {
+function fetchMessages($to_user_id) {
     global $conn;
     $messages = [];
-    if (isset($_SESSION['userId'])) {
+    if (isset($_SESSION['userId']) && $to_user_id) {
         $user_id = $_SESSION['userId'];
-        $messages_query = "SELECT m.message, m.timestamp, u.username FROM messages m JOIN users u ON m.from_user_id = u.userID WHERE m.to_user_id = '$user_id' OR m.from_user_id = '$user_id' ORDER BY m.timestamp DESC";
+        $messages_query = "SELECT m.message, m.timestamp, u.username FROM messages m JOIN users u ON m.from_user_id = u.userID WHERE (m.to_user_id = '$user_id' AND m.from_user_id = '$to_user_id') OR (m.to_user_id = '$to_user_id' AND m.from_user_id = '$user_id') ORDER BY m.timestamp ASC";
         $messages_result = mysqli_query($conn, $messages_query);
         while ($msg = mysqli_fetch_assoc($messages_result)) {
             array_push($messages, $msg);
@@ -33,7 +30,6 @@ function fetchMessages() {
     return $messages;
 }
 
-// Function to fetch users for messaging
 function fetchUsers() {
     global $conn;
     $users = [];
@@ -47,3 +43,4 @@ function fetchUsers() {
     }
     return $users;
 }
+?>
