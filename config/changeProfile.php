@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
         $path = "../res/img/".$_FILES['profilePic']['name'];
         $sql = "UPDATE users SET picturepath = ? WHERE username = ?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ss", $path, $username);
+        $stmt->bind_param("ss", $_FILES['profilePic']['name'], $username);
         if ($stmt->execute()) {
             echo "Daten erfolgreich eingefügt.";
         } else {

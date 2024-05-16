@@ -21,6 +21,7 @@
 <?php 
 require 'config/session.php';
 include 'inc/header.php';
+require 'config/getuserdata.php';
 ?>
 <div id="content">
 <?php
