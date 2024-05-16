@@ -1,3 +1,4 @@
+/*------------------------------------ General start ------------------------------------ */
 html, body {
     height: 100%;
     margin: 0;
@@ -13,6 +14,50 @@ body {
     flex-grow: 1;
 }
 
+/*------------------------------------ General end ------------------------------------ */
+
+
+/*------------------------------------ Header start ------------------------------------ */
+
+.aligned-navbar {
+    max-width: 100%;
+    margin-left: 0;
+}
+
+.navbar {
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.nav-link, .navbar-brand {
+    padding: 10px 15px;
+    color: #333;
+    text-transform: uppercase;
+    font-size: 16px;
+    letter-spacing: 0.05rem;
+}
+
+.navbar-nav {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+@media (min-width: 768px) {
+    .aligned-navbar {
+        max-width: fit-content;
+        margin-left: auto;
+    }
+
+    .navbar-brand {
+        flex-grow: 0;
+    }
+}
+
+/*------------------------------------ Header end ------------------------------------ */
+
+
+/*------------------------------------ Main start ------------------------------------ */
 .center-container {
     display: flex;
     justify-content: center;
@@ -26,6 +71,12 @@ body {
     flex-direction: column;
 }
 
+@media (min-width: 768px) {
+    .page-container {
+        flex-direction: row;
+    }
+}
+
 .nav.flex-column {
     width: 100%;
     height: auto;
@@ -37,56 +88,258 @@ body {
     width: 100%;
 }
 
-.aligned-navbar {
-    max-width: 100%;
-    margin-left: 0;
+@media (min-width: 768px) {
+    .nav.flex-column {
+        min-width: 200px;
+        height: 100vh;
+        position: fixed;
+    }
+
+    .main-content {
+        margin-left: 200px;
+        width: calc(100% - 200px);
+    }
 }
 
-/*  PROFILE STYLE */
+/*------------------------------------ Main end ------------------------------------ */
 
-#profileName, #profileMajor, #profileAge, #profileText, #profilePic, #profileVorname, #profileNachname, #profileEmail {
+
+/*------------------------------------ Profile start ------------------------------------ */
+
+#profileName, #profileMajor, #profileAge, #profileText, #profilePic, #profileButton {
     border-color: #555;
     border-width: 1.5px;
 }
 
-#profileButton{
+#profileButton {
     background-color: #333;
-    border-color: #555;
-    border-width: 1.5px;
     color: #fff;
     width: 25%;
 }
 
-#profileName:focus, #profileMajor:focus, #profileAge:focus, #profileText:focus, #profilePic:focus, #profileVorname:focus, #profileNachname:focus, #profileEmail:focus{
+#profileName:focus, #profileMajor:focus, #profileAge:focus, #profileText:focus, #profilePic:focus {
     border-color: #777;
     box-shadow: 0 0 0 0.25rem rgba(102, 102, 102, 0.25);
 }
 
-/*  IMPRINT STYLE */
+/*------------------------------------ Profile end ------------------------------------ */
 
-ul{
+
+/*------------------------------------ Login start ------------------------------------ */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+}
+
+.login-box {
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: 300px;
+}
+
+.form-field {
+    margin-bottom: 15px;
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    background-color: transparent;
+}
+
+.form-field input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    outline: none;
+    color: #333;
+}
+
+.btn-login {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-login:hover {
+    background-color: #0056b3;
+}
+
+.login-message {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.success, .error {
+    color: red;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.success {
+    color: green;
+}
+
+/*------------------------------------ Login end ------------------------------------ */
+
+
+/*------------------------------------ Registration start ------------------------------------ */
+.registration-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+}
+
+.registration-box {
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: 300px;
+}
+
+.form-field {
+    margin-bottom: 15px;
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    background-color: transparent;
+}
+
+.form-field input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    outline: none;
+    color: #333;
+}
+
+.btn-register {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-register:hover {
+    background-color: #0056b3;
+}
+
+.registration-message {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.error-message {
+    color: red;
+    text-align: center;
+    margin-top: 10px;
+}
+
+/*------------------------------------ Registration end ------------------------------------ */
+
+
+/*------------------------------------ admin overview Start------------------------------------ */
+.container-admin-overview {
+    width: 90%;
+    margin: auto;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow-x: auto;
+}
+
+.table-overview {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.th-overview, .td-overview {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.th-overview {
+    background-color: #f2f2f2;
+}
+
+.booking-container-overview {
+    margin-top: 30px;
+    margin-bottom: 70px;
+}
+
+.booking-table-overview {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.booking-th-overview, .booking-td-overview {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.booking-th-overview {
+    background-color: #f2f2f2;
+}
+
+.a-overview {
+    text-decoration: none;
+    color: #3498db;
+}
+
+.admin-page-overview h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+/*------------------------------------ admin overview end------------------------------------ */
+
+/*------------------------------------ Footer start ------------------------------------ */
+ul {
     list-style-type: none;
     padding: 0;
 }
-li{
+
+li {
     margin-bottom: 5px;
 }
-.indented{
+
+.indented {
     margin-left: 25px;
 }
 
 .imprint-style {
-    max-width: 600px; /* Maximale Breite des Impressums */
-    margin: 0 auto; /* Zentriert das Impressum */
-    text-align: left; /* Links ausrichten */
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: left;
     width: calc(100% - 200px);
 }
-.imprint-headline-1{
-    font-size: xx-large;
-    text-align: center;
-}
-.imprint-headline-2{
-    font-size: x-large;
+
+.imprint-headline-1, .imprint-headline-2 {
     text-align: center;
 }
 
@@ -119,30 +372,4 @@ details[open] summary {
     margin-bottom: 60px;
 }
 
-details h1 {
-    align-self: center;
-    margin-bottom: 15px;
-}
-
-
-@media (min-width: 768px) {
-    .page-container {
-        flex-direction: row;
-    }
-
-    .nav.flex-column {
-        min-width: 200px;
-        height: 100vh;
-        position: fixed;
-    }
-
-    .main-content {
-        margin-left: 200px;
-        width: calc(100% - 200px);
-    }
-
-    .aligned-navbar {
-        max-width: fit-content;
-        margin-left: auto;
-    }
-}
+/*------------------------------------ Footer end ------------------------------------ */
