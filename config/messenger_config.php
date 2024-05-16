@@ -1,8 +1,10 @@
 <?php
 // Start the session and include database access
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
+//if (session_status() == PHP_SESSION_NONE) {
+//    session_start();
+//}
+// hier session.php inkludieren :D
+require_once 'session.php';
 require 'config/dbaccess.php';
 
 // Function to handle message posting
