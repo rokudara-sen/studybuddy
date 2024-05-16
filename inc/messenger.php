@@ -67,7 +67,7 @@ require 'config/messenger_config.php';
             $.ajax({
                 url: 'config/post_message.php',
                 method: 'POST',
-                data: $(this).serialize() + '&to_user_id=' + toUserId,
+                data: {message: $('#message').val(), to_user_id: toUserId},
                 success: function() {
                     $('#message').val('');
                     fetchMessages(toUserId);
@@ -76,11 +76,16 @@ require 'config/messenger_config.php';
         });
 
         $(document).ready(function() {
-            // Initially load messages for the first user in the list if any
             var initialUserId = $('#to_user_id').val();
             if (initialUserId) {
                 fetchMessages(initialUserId);
             }
+            setInterval(function() {
+                var toUserId = $('#to_user_id').val();
+                if (toUserId) {
+                    fetchMessages(toUserId);
+                }
+            }, 3000);
         });
     </script>
 </body>

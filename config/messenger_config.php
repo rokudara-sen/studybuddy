@@ -6,7 +6,7 @@ require 'dbaccess.php';
 
 function postMessage() {
     global $conn;
-    if (isset($_SESSION['userId']) && $_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['message']) && isset($_POST['to_user_id'])) {
+    if (isset($_SESSION['userId'])) {
         $message = htmlspecialchars($_POST['message']);
         $to_user_id = $_POST['to_user_id'];
         $user_id = $_SESSION['userId'];
@@ -21,7 +21,7 @@ function fetchMessages($to_user_id) {
     $messages = [];
     if (isset($_SESSION['userId']) && $to_user_id) {
         $user_id = $_SESSION['userId'];
-        $messages_query = "SELECT m.message, m.timestamp, u.username FROM messages m JOIN users u ON m.from_user_id = u.userID WHERE (m.to_user_id = '$user_id' AND m.from_user_id = '$to_user_id') OR (m.to_user_id = '$to_user_id' AND m.from_user_id = '$user_id') ORDER BY m.timestamp DESC";
+        $messages_query = "SELECT m.message, m.timestamp, u.username FROM messages m JOIN users u ON m.from_user_id = u.userID WHERE (m.to_user_id = '$user_id' AND m.from_user_id = '$to_user_id') OR (m.to_user_id = '$to_user_id' AND m.from_user_id = '$user_id') ORDER BY m.timestamp ASC";
         $messages_result = mysqli_query($conn, $messages_query);
         while ($msg = mysqli_fetch_assoc($messages_result)) {
             array_push($messages, $msg);
@@ -43,3 +43,4 @@ function fetchUsers() {
     }
     return $users;
 }
+?>
