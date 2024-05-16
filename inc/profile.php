@@ -4,17 +4,6 @@
      exit();
     }
 ?>
-
-<!doctype html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Profil</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-</head>
 <div class="container">
   <div class="row">
     <div class="col-md-6">
@@ -56,11 +45,26 @@
     </form>
     </div>
     <div class="row">
+    <div class="col-md-6">
+            <h2 class="p-3 mt-3">Passwort ändern</h2>
+            <form class="p-3 mt-3" action="config/changeProfile.php" method="post">
+                <div class="mb-3">
+                    <input type="password" class="form-control" name="currentPassword" id="currentPassword" placeholder="Aktuelles Passwort" required>
+                </div>
+                <div class="mb-3">
+                    <input type="password" class="form-control" name="newPassword" id="newPassword" placeholder="Neues Passwort" required>
+                </div>
+                <div class="mb-3">
+                    <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="Neues Passwort bestätigen" required>
+                </div>
+                <br>
+                <button class="form-control" type="submit" id="changePassword" name="changePassword">Passwort ändern</button>
+            </form>
+    </div>
         <div class="col-md-6">
             <h2 class="p-3 mt-3" >Profil preview</h2>
-            <div class="center-container">
-                <div class="card text-center text-bg-dark" style="width: 50rem;">
-                    <div class="card-header">
+                <div class="card text-center text-bg-dark">
+                    <div class="card-header lead">
                         <?php echo $row['username']?> | <?php echo $row['age']?> | <?php echo $row['major']?>
                     </div>
                     <img src="res/img/<?php echo $row['picturepath']?>" class="card-img-top img-fluid" alt="kein Profilbild">
@@ -72,13 +76,10 @@
                         <a href="#" class="btn btn-primary">Go Next</a>
                     </div>
                 </div>
-            </div>
         </div>
-    </div>
 
+    </div>
   </div>
-</div>
-<br><br><br>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous">

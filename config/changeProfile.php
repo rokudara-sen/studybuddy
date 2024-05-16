@@ -5,6 +5,38 @@ require_once 'session.php';
 $username = $_SESSION['username'];
 if ($_SERVER["REQUEST_METHOD"] === "POST") 
 {   
+    if (isset($_POST['changePassword'])) {
+        // Passwort ändern
+        $currentPassword = sanitizeInput($_POST['currentPassword']);
+        $newPassword = sanitizeInput($_POST['newPassword']);
+        $confirmPassword = sanitizeInput($_POST['confirmPassword']);
+
+        if ($newPassword !== $confirmPassword) {
+            echo "Die neuen Passwörter stimmen nicht überein.";
+            exit();
+        }
+
+        $stmt = $conn->prepare("SELECT password FROM users WHERE username = ?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $stmt->store_result();
+        $stmt->bind_result($hashedPassword);
+        $stmt->fetch();
+
+        if (password_verify($currentPassword, $hashedPassword)) {
+            $newHashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+            $stmt = $conn->prepare("UPDATE users SET password = ? WHERE username = ?");
+            $stmt->bind_param("ss", $newHashedPassword, $username);
+            if ($stmt->execute()) {
+                echo "Passwort erfolgreich geändert.";
+            } else {
+                echo "Fehler beim Ändern des Passworts: " . $stmt->error;
+            }
+        } else {
+            echo "Aktuelles Passwort ist falsch.";
+        }
+    }
+
     if(empty($_FILES['profilePic']['name']) == false)
     {
         $uploadErfolg = "";
@@ -38,8 +70,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
         } else {
             echo "Fehler beim Einfügen der Daten: " . $stmt->error;
         } 
-        $stmt->close();
-        $conn->close();
     }
     if(empty($_POST['profileNachname']) == false)
     {
@@ -52,8 +82,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
         } else {
             echo "Fehler beim Einfügen der Daten: " . $stmt->error;
         } 
-        $stmt->close();
-        $conn->close(); 
     }
     if(empty($_POST['profileVorname']) == false)
     {
@@ -65,8 +93,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
         } else {
             echo "Fehler beim Einfügen der Daten: " . $stmt->error;
         }
-        $stmt->close();
-        $conn->close();
     }
     if(empty($_POST['profileAge']) == false)
     {
@@ -78,8 +104,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
         } else {
             echo "Fehler beim Einfügen der Daten: " . $stmt->error;
         }  
-        $stmt->close();
-        $conn->close(); 
     }
     if(empty($_POST['profileText']) == false)
     {
@@ -91,8 +115,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
         } else {
             echo "Fehler beim Einfügen der Daten: " . $stmt->error;
         }
-        $stmt->close();
-        $conn->close();
     }
     if(empty($_POST['profileMajor']) == false)
     {
@@ -104,8 +126,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
         } else {
             echo "Fehler beim Einfügen der Daten: " . $stmt->error;
         }
-        $stmt->close();
-        $conn->close();
     }
     if(empty($_POST['profileEmail']) == false)
     {
@@ -123,8 +143,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
         {
             header("Location: ../index.php?page=profile");
         }
-        $stmt->close();
-        $conn->close();
     }
     if(empty($_POST['profileName']) == false)
     {
@@ -143,11 +161,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
         {
             header("Location: ../index.php?page=profile");
         }
-        $stmt->close();
-        $conn->close();
     }
   
 }
+$stmt->close();
+$conn->close();
 header("Location: ../index.php?page=profile");
 exit();  
 

@@ -18,22 +18,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if ($result->num_rows === 1) {
         $row = $result->fetch_assoc();
         if (password_verify($password, $row['password'])) {  //password_verify is a php function that compares plain text password with the hashed version
-            if ($row['userStatus'] === 'active') {
-                // Password is correct, user is not disabled, log in the user and save userdata in session variables
-                    $_SESSION['username'] = $username;
-                    $_SESSION['userId'] = $row['userId'];
+            $_SESSION['username'] = $username;
+            $_SESSION['userId'] = $row['userID'];
 
-                    if ($row['userTyp'] === "guest" ) { // user login
-                        $_SESSION['userrole'] = "guest";
-                    }
-                    if ($row['userTyp'] === "admin") {  // admin login
-                        $_SESSION['userrole'] = "admin";
-                    }
-
-               }
-               else {
-                $error = "Userstatus inactive";
-               }
+            if ($row['userTyp'] === "guest" ) { // user login
+                $_SESSION['userrole'] = "guest";
+            }
+            if ($row['userTyp'] === "admin") {  // admin login
+                $_SESSION['userrole'] = "admin";
+            }
         } else {
             $error = "Invalid password";
         }
