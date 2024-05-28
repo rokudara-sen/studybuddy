@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 28. Mai 2024 um 20:11
--- Server-Version: 10.4.32-MariaDB
--- PHP-Version: 8.2.12
+-- Generation Time: May 28, 2024 at 07:46 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Datenbank: `studybuddy`
+-- Database: `studybuddy`
 --
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `messages`
+-- Table structure for table `messages`
 --
 
 CREATE TABLE `messages` (
@@ -36,7 +36,7 @@ CREATE TABLE `messages` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Daten für Tabelle `messages`
+-- Dumping data for table `messages`
 --
 
 INSERT INTO `messages` (`message_id`, `from_user_id`, `to_user_id`, `message`, `timestamp`) VALUES
@@ -66,7 +66,7 @@ INSERT INTO `messages` (`message_id`, `from_user_id`, `to_user_id`, `message`, `
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `report`
+-- Table structure for table `report`
 --
 
 CREATE TABLE `report` (
@@ -77,7 +77,7 @@ CREATE TABLE `report` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Daten für Tabelle `report`
+-- Dumping data for table `report`
 --
 
 INSERT INTO `report` (`report_id`, `reported_user`, `reported_by`, `reason`) VALUES
@@ -87,7 +87,7 @@ INSERT INTO `report` (`report_id`, `reported_user`, `reported_by`, `reason`) VAL
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -98,54 +98,42 @@ CREATE TABLE `users` (
   `password` varchar(256) NOT NULL,
   `email` varchar(256) NOT NULL,
   `userTyp` varchar(12) NOT NULL DEFAULT 'guest',
-  `userStatus` varchar(12) NOT NULL DEFAULT 'active',
   `age` int(11) NOT NULL,
   `major` varchar(40) NOT NULL,
-  `profiletext` varchar(1999) DEFAULT NULL,
-  `picturepath` varchar(1999) DEFAULT NULL
+  `profiletext` varchar(1999) NOT NULL,
+  `picturepath` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Daten für Tabelle `users`
+-- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`userID`, `username`, `vorname`, `nachname`, `password`, `email`, `userTyp`, `userStatus`, `age`, `major`, `profiletext`, `picturepath`) VALUES
-(6, 'admin2', 'BeniTestet', 'Zel1', '$2y$10$C3o9T3Ef5gMc2w51VgpY7ev3fyrWsU6ANL34YP.YvauvRRwyHgDSS', 'admin@gmai.com', 'admin', 'active', 12, 'IT', 'Kein Text', 'WhatsApp Bild 2024-01-15 um 19.20.58_4dc7fcb5.jpg'),
-(7, 'Beni1', 'Benjamin', 'Zelenay', '$2y$10$RcmaFRuX8AzS3q9NJh68f.XhaRIxXD.GO00eauaXzuA9G4OFlFVpq', 'benjaminzelenay@gmail.com', 'guest', 'active', 15, 'IT', 'Kein Text', 'Bild'),
-(8, 'Users1', 'Users1', 'Users1', '$2y$10$YEgvnWH9g.IXDB0zPKJvt.KFgmvNt0f1jsxtecET.BjemAMGR5mGK', 'User1@User1.User1', 'guest', 'active', 0, '', NULL, NULL),
-(9, 'users2', 'users2', 'users2', '$2y$10$vxL5KBf.aLti5LHsOhBdJuOay2GJQYsYCewh7ZBwNtwj3s6FjLyii', 'users2@users2.users2', 'guest', 'active', 0, '', NULL, NULL);
+INSERT INTO `users` (`userID`, `username`, `vorname`, `nachname`, `password`, `email`, `userTyp`, `age`, `major`, `profiletext`, `picturepath`) VALUES
+(1, 'Test', 'Test', 'Test', 'Test', 'Test@Test.Test', 'user', 21, 'Test', 'Test', ''),
+(2, 'rokudara', 'Matteo', 'Habsburg-Lothringen', '$2y$10$5b9Ye45lTTBxDBPTQIpETOFlaAOkX8QokUo9XvtL12qTpDyvFgBiS', 'matteo.habsburg@gmx.at', 'admin', 0, '', '', ''),
+(3, 'rokudara2', 'Matteo', 'Habsburg-Lothringen', '$2y$10$3rj1Ihl92Qzznobey9WH.O6ytH7bs8Pw1XOLKIYuVrNudXNli9oPO', 'matteo.habsburg@gmx.at', 'guest', 0, '', '', ''),
+(4, 'Tester', 'Tester', 'Tester', '$2y$10$ERhWCe9WSQ3rkIF20AEVA.Wfyk3G2QCIjgtmeAZCJZHdY7A0.Y3eC', 'Test@test.testtest', 'guest', 0, '', '', ''),
+(8, 'hallo', 'hallo', 'hallo', '$2y$10$rKKS0netidooEnAWwaUA4uLvRFhS4t2EXRlv5cdKCWGiuF9Vy1A4C', 'hallo@hallo.hallo', 'admin', 0, '', '', '');
 
 --
--- Indizes der exportierten Tabellen
+-- Indexes for dumped tables
 --
 
 --
--- Indizes für die Tabelle `report`
---
-ALTER TABLE `report`
-  ADD PRIMARY KEY (`report_id`);
-
---
--- Indizes für die Tabelle `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`userID`);
 
 --
--- AUTO_INCREMENT für exportierte Tabellen
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT für Tabelle `report`
---
-ALTER TABLE `report`
-  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT für Tabelle `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
