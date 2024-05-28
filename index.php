@@ -65,6 +65,9 @@ if (isset($_GET['page']) && !empty($_GET['page'])) {
         case 'admin_change_password':
             include 'inc/admin_change_password.php';
             break;
+        case 'userreports':
+            include 'inc/admin_userreports.php';
+            break;
         default:
                 include 'inc/home.php';
                 break; 

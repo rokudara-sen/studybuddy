@@ -23,6 +23,7 @@
                 }
                 if ($_SESSION['userrole'] === "admin") {
                     echo '<li class="nav-item"><a class="nav-link" href="index.php?page=userverwaltung">Userverwaltung</a></li>';
+                    echo '<li class="nav-item"><a class="nav-link" href="index.php?page=userreports">userreports</a></li>';
                 } if ($_SESSION['userrole'] === "admin" || $_SESSION['userrole'] === "guest") {
                     echo '<li class="nav-item"><a class="nav-link" href="index.php?page=logout">Logout</a></li>';
                 }?>

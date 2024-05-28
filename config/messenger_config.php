@@ -1,8 +1,11 @@
 <?php
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-require 'dbaccess.php';
+// Start the session and include database access
+//if (session_status() == PHP_SESSION_NONE) {
+//    session_start();
+//}
+// hier session.php inkludieren :D
+require_once 'session.php';
+require 'config/dbaccess.php';
 
 function postMessage() {
     global $conn;

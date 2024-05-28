@@ -1,4 +1,4 @@
-<body>
+
     <div id="helpDiv" class="d-flex flex-column">
 
         <h1>Frequently asked Questions</h1>
