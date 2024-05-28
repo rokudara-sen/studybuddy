@@ -9,33 +9,25 @@ if (isset($_GET['logout'])) {
     header('Location: index.php');
 }
 
+if (!isset($_SESSION['username'])) { 
+    header('Location: index.php');
+ }
+
 $isLoggedIn = isset($_SESSION['loggedin']) && $_SESSION['loggedin'];
 ?>
 
 <div class="center-container">
     <div class="card text-center text-bg-dark" style="width: 50rem;">
-        <div class="card-header">
-            NAME | MAJOR | AGE
+        <div class="card-header lead">
+            <?php echo $row['username']?> | <?php echo $row['age']?> | <?php echo $row['major']?>
         </div>
-        <img src="res/img/test.jpg" class="card-img-top" alt="test">
+            <img src="res/img/<?php echo $row['picturepath']?>" class="card-img-top img-fluid" alt="kein Profilbild">
         <div class="card-body">
-            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis officia et
-                accusantium minima aut recusandae vel voluptas a nostrum, exercitationem animi accusamus nihil autem
-                iure. Qui facere beatae sequi perspiciatis?</p>
-        </div>
-    </div>
-</div>
-
-<div class="center-container">
-    <div class="card text-center text-bg-dark" style="width: 50rem;">
-        <div class="card-header">
-            NAME | MAJOR | AGE
-        </div>
-        <img src="res/img/test.jpg" class="card-img-top" alt="test">
+            <p class="card-text"><?php echo $row['profiletext']?></p>
+         </div>
         <div class="card-body">
-            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis officia et
-                accusantium minima aut recusandae vel voluptas a nostrum, exercitationem animi accusamus nihil autem
-                iure. Qui facere beatae sequi perspiciatis?</p>
+            <a href="#" class="btn btn-primary">Send Like</a>
+            <a href="#" class="btn btn-primary">Go Next</a>
         </div>
     </div>
 </div>

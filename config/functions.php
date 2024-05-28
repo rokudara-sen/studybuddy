@@ -58,4 +58,3 @@ function passwordDifferent($pwd1, $pwd2) {
     return $result;
 }
 ?>
-?>

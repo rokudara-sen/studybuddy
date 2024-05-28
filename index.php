@@ -21,6 +21,7 @@
 <?php 
 require 'config/session.php';
 include 'inc/header.php';
+require 'config/getuserdata.php';
 ?>
 <div id="content">
 <?php
@@ -69,8 +70,7 @@ if (isset($_GET['page']) && !empty($_GET['page'])) {
             break;
         default:
                 include 'inc/home.php';
-                break;
-                
+                break; 
     }
 }
 ?>
