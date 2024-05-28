@@ -1,33 +1,124 @@
 <?php
-if (isset($_GET['login'])) {
-    $_SESSION['loggedin'] = true;
-    header('Location: index.php');
+
+// Database connection
+require 'config/dbaccess.php';
+require 'config/session.php'; // Starts session
+
+// Check if the user is logged in and set the user ID
+if ($_SESSION['userrole'] == "guest" ||  $_SESSION['userrole'] == "admin") {
+    $userId = $_SESSION['userId'];
+    $isLoggedIn = true;
+} else {
+    $isLoggedIn = false;
 }
 
-if (isset($_GET['logout'])) {
-    unset($_SESSION['loggedin']);
-    header('Location: index.php');
+// Fetch user profiles only if the user is logged in
+$profiles = [];
+if ($isLoggedIn) {
+    $swipedProfiles = isset($_SESSION['swipedProfiles']) ? $_SESSION['swipedProfiles'] : [];
+    $swipedProfilesList = implode(",", array_map('intval', $swipedProfiles));
+
+    if (empty($swipedProfilesList)) {
+        $sql = "SELECT userID, username, age, major, profiletext, picturepath FROM users WHERE userID != $userId";
+    } else {
+        $sql = "SELECT userID, username, age, major, profiletext, picturepath FROM users WHERE userID != $userId AND userID NOT IN ($swipedProfilesList)";
+    }
+
+    $result = $conn->query($sql); // conn is the variable from dbaccess
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $profiles[] = $row;
+        }
+    }
 }
-
-if (!isset($_SESSION['username'])) { 
-    header('Location: index.php');
- }
-
-$isLoggedIn = isset($_SESSION['loggedin']) && $_SESSION['loggedin'];
 ?>
-
-<div class="center-container">
-    <div class="card text-center text-bg-dark" style="width: 50rem;">
-        <div class="card-header lead">
-            <?php echo $row['username']?> | <?php echo $row['age']?> | <?php echo $row['major']?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Discovery</title>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <style>
+        .swiper-container {
+            width: 100%;
+            height: 100%;
+        }
+        .swiper-slide {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .card {
+            width: 300px;
+            height: 400px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .card-body {
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+    <?php if ($isLoggedIn): ?>
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <?php foreach ($profiles as $profile): ?>
+            <div class="swiper-slide">
+                <div class="card">
+                    <img src="res/img/<?php echo $profile['picturepath']; ?>" alt="Profile Picture">
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo $profile['username']; ?>, <?php echo $profile['age']; ?></h5>
+                        <p class="card-text">Major: <?php echo $profile['major']; ?></p>
+                        <p class="card-text"><?php echo $profile['profiletext']; ?></p>
+                        <button class="btn btn-primary swipe-button" data-id="<?php echo $profile['userID']; ?>">Send Like</button>
+                    </div>
+                </div>
+            </div>
+            <?php endforeach; ?>
         </div>
-            <img src="res/img/<?php echo $row['picturepath']?>" class="card-img-top img-fluid" alt="kein Profilbild">
-        <div class="card-body">
-            <p class="card-text"><?php echo $row['profiletext']?></p>
-         </div>
-        <div class="card-body">
-            <a href="#" class="btn btn-primary">Send Like</a>
-            <a href="#" class="btn btn-primary">Go Next</a>
-        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
     </div>
-</div>
+    <?php else: ?>
+    <p>Please log in to see profiles.</p>
+    <?php endif; ?>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+
+        document.querySelectorAll('.swipe-button').forEach(button => {
+            button.addEventListener('click', function () {
+                var profileId = this.dataset.id;
+                fetch('swipe.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ id: profileId }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        swiper.removeSlide(swiper.activeIndex);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

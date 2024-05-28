@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 16. Mai 2024 um 19:48
--- Server-Version: 10.4.28-MariaDB
--- PHP-Version: 8.2.4
+-- Erstellungszeit: 28. Mai 2024 um 20:11
+-- Server-Version: 10.4.32-MariaDB
+-- PHP-Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -58,7 +58,31 @@ INSERT INTO `messages` (`message_id`, `from_user_id`, `to_user_id`, `message`, `
 (16, 4, 2, 'Testing', '2024-05-16 15:51:59'),
 (17, 4, 2, 'Hallo', '2024-05-16 15:52:05'),
 (18, 4, 2, 'Testing', '2024-05-16 15:53:45'),
-(19, 4, 2, 'Test\n', '2024-05-16 15:55:18');
+(19, 4, 2, 'Test\n', '2024-05-16 15:55:18'),
+(0, 6, 0, '', '2024-05-16 17:38:30'),
+(0, 6, 0, '', '2024-05-16 17:38:37'),
+(0, 6, 0, '', '2024-05-16 17:38:45');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `report`
+--
+
+CREATE TABLE `report` (
+  `report_id` int(11) NOT NULL,
+  `reported_user` int(11) NOT NULL,
+  `reported_by` int(11) NOT NULL,
+  `reason` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Daten für Tabelle `report`
+--
+
+INSERT INTO `report` (`report_id`, `reported_user`, `reported_by`, `reason`) VALUES
+(1, 2, 5, 'ka'),
+(2, 5, 2, 'ka');
 
 -- --------------------------------------------------------
 
@@ -74,34 +98,32 @@ CREATE TABLE `users` (
   `password` varchar(256) NOT NULL,
   `email` varchar(256) NOT NULL,
   `userTyp` varchar(12) NOT NULL DEFAULT 'guest',
+  `userStatus` varchar(12) NOT NULL DEFAULT 'active',
   `age` int(11) NOT NULL,
   `major` varchar(40) NOT NULL,
-  `profiletext` varchar(1999) NOT NULL,
-  `picturepath` varchar(90) NOT NULL
+  `profiletext` varchar(1999) DEFAULT NULL,
+  `picturepath` varchar(1999) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Daten für Tabelle `users`
 --
 
-INSERT INTO `users` (`userID`, `username`, `vorname`, `nachname`, `password`, `email`, `userTyp`, `age`, `major`, `profiletext`, `picturepath`) VALUES
-(1, 'Test', 'Test', 'Test', 'Test', 'Test@Test.Test', 'user', 21, 'Test', 'Test', ''),
-(2, 'rokudara', 'Matteo', 'Habsburg-Lothringen', '$2y$10$5b9Ye45lTTBxDBPTQIpETOFlaAOkX8QokUo9XvtL12qTpDyvFgBiS', 'matteo.habsburg@gmx.at', 'admin', 0, '', '', ''),
-(3, 'rokudara2', 'Matteo', 'Habsburg-Lothringen', '$2y$10$3rj1Ihl92Qzznobey9WH.O6ytH7bs8Pw1XOLKIYuVrNudXNli9oPO', 'matteo.habsburg@gmx.at', 'guest', 0, '', '', ''),
-(4, 'Tester', 'Tester', 'Tester', '$2y$10$ERhWCe9WSQ3rkIF20AEVA.Wfyk3G2QCIjgtmeAZCJZHdY7A0.Y3eC', 'Test@test.testtest', 'guest', 0, '', '', ''),
-(5, 'theoo', 'theo', 'wendel', '$2y$10$BINSM2uh8Kzb0orjIm8SMOO2KJ8qic0OminvVJf.WG8mxPvef7hpG', 'theo@theo.theo', 'guest', 19, 'Informatik', 'Das ist meine about-section!', '20171031_174936.jpg');
+INSERT INTO `users` (`userID`, `username`, `vorname`, `nachname`, `password`, `email`, `userTyp`, `userStatus`, `age`, `major`, `profiletext`, `picturepath`) VALUES
+(6, 'admin2', 'BeniTestet', 'Zel1', '$2y$10$C3o9T3Ef5gMc2w51VgpY7ev3fyrWsU6ANL34YP.YvauvRRwyHgDSS', 'admin@gmai.com', 'admin', 'active', 12, 'IT', 'Kein Text', 'WhatsApp Bild 2024-01-15 um 19.20.58_4dc7fcb5.jpg'),
+(7, 'Beni1', 'Benjamin', 'Zelenay', '$2y$10$RcmaFRuX8AzS3q9NJh68f.XhaRIxXD.GO00eauaXzuA9G4OFlFVpq', 'benjaminzelenay@gmail.com', 'guest', 'active', 15, 'IT', 'Kein Text', 'Bild'),
+(8, 'Users1', 'Users1', 'Users1', '$2y$10$YEgvnWH9g.IXDB0zPKJvt.KFgmvNt0f1jsxtecET.BjemAMGR5mGK', 'User1@User1.User1', 'guest', 'active', 0, '', NULL, NULL),
+(9, 'users2', 'users2', 'users2', '$2y$10$vxL5KBf.aLti5LHsOhBdJuOay2GJQYsYCewh7ZBwNtwj3s6FjLyii', 'users2@users2.users2', 'guest', 'active', 0, '', NULL, NULL);
 
 --
 -- Indizes der exportierten Tabellen
 --
 
 --
--- Indizes für die Tabelle `messages`
+-- Indizes für die Tabelle `report`
 --
-ALTER TABLE `messages`
-  ADD PRIMARY KEY (`message_id`),
-  ADD KEY `from_user_id` (`from_user_id`),
-  ADD KEY `to_user_id` (`to_user_id`);
+ALTER TABLE `report`
+  ADD PRIMARY KEY (`report_id`);
 
 --
 -- Indizes für die Tabelle `users`
@@ -114,27 +136,16 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT für Tabelle `messages`
+-- AUTO_INCREMENT für Tabelle `report`
 --
-ALTER TABLE `messages`
-  MODIFY `message_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+ALTER TABLE `report`
+  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT für Tabelle `users`
 --
 ALTER TABLE `users`
-  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- Constraints der exportierten Tabellen
---
-
---
--- Constraints der Tabelle `messages`
---
-ALTER TABLE `messages`
-  ADD CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`from_user_id`) REFERENCES `users` (`userID`),
-  ADD CONSTRAINT `messages_ibfk_2` FOREIGN KEY (`to_user_id`) REFERENCES `users` (`userID`);
+  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
