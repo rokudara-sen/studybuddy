@@ -19,12 +19,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         // Fügen Sie den Benutzerbericht zur Datenbank hinzu
         $stmt = $conn->prepare("INSERT INTO report (reported_user, reported_by, reason) VALUES (?, ?, ?)");
-        $stmt->bind_param("sss", $reportedUser, $_SESSION['username'], $reason);
+        $stmt->bind_param("iis", $reportedUser, $_SESSION['userId'], $reason);
         $stmt->execute();
         $stmt->close();
         
         // Weiterleitung oder Erfolgsmeldung
-        header("Location: index.php?page=userreports");
+        header("Location: ../index.php?page=userreports");
         exit();
     } else {
         // Fehlermeldung, wenn Daten unvollständig sind

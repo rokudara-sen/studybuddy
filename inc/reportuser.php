@@ -8,8 +8,10 @@
         exit();
     }
 
+    $ID = $_SESSION['userId'];
+
     // Abfrage, um alle Benutzer abzurufen
-    $sqlUsers = "SELECT * FROM users";
+    $sqlUsers = "SELECT userID, username FROM users WHERE userID != $ID";
     $resultUsers = $conn->query($sqlUsers);
 ?>
 
@@ -33,14 +35,14 @@
                 <?php
                     // Anzeigen aller Benutzer im Dropdown-Menü
                     while ($rowUser = $resultUsers->fetch_assoc()) {
-                        echo "<option value='" . $rowUser["username"] . "'>" . $rowUser["username"] . "</option>";
+                        echo "<option value='" . $rowUser["userID"] . "'>" . $rowUser["username"] . "</option>";
                     }
                 ?>
             </select>
         </div>
         <div class="mb-3">
-            <label for="report_message" class="form-label">Meldung:</label>
-            <textarea class="form-control" id="report_message" name="report_message" rows="3" required></textarea>
+            <label for="reason" class="form-label">Meldung:</label>
+            <textarea class="form-control" id="reason" name="reason" rows="3" required></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Melden</button>
     </form>
