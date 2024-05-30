@@ -1,11 +1,10 @@
 <?php
-// Start the session and include database access
-//if (session_status() == PHP_SESSION_NONE) {
-//    session_start();
-//}
-// hier session.php inkludieren :D
 require_once 'session.php';
-require 'config/dbaccess.php';
+require 'dbaccess.php';
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 function postMessage() {
     global $conn;
@@ -38,11 +37,39 @@ function fetchUsers() {
     $users = [];
     if (isset($_SESSION['userId'])) {
         $user_id = $_SESSION['userId'];
-        $users_query = "SELECT userID, username FROM users WHERE userID != '$user_id'";
-        $users_result = mysqli_query($conn, $users_query);
-        while ($user = mysqli_fetch_assoc($users_result)) {
+
+        // Log the user_id
+        error_log("fetchUsers called for user_id: $user_id");
+
+        // Get users who have mutually liked each other
+        $users_query = "SELECT DISTINCT u.userID, u.username 
+                        FROM users u 
+                        JOIN matches m1 ON u.userID = m1.user_match_2 
+                        JOIN matches m2 ON u.userID = m2.user_match_1 
+                        WHERE m1.user_match_1 = ? AND m1.likes = 1 
+                        AND m2.user_match_2 = ? AND m2.likes = 1";
+
+        $stmt = $conn->prepare($users_query);
+        if ($stmt === false) {
+            error_log("Prepare failed: " . htmlspecialchars($conn->error));
+            return $users;
+        }
+
+        $stmt->bind_param("ii", $user_id, $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result === false) {
+            error_log("Execute failed: " . htmlspecialchars($stmt->error));
+            return $users;
+        }
+
+        while ($user = $result->fetch_assoc()) {
             array_push($users, $user);
         }
+
+        // Log the results
+        error_log("Users fetched: " . json_encode($users));
     }
     return $users;
 }

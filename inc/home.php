@@ -104,7 +104,7 @@ if ($isLoggedIn) {
         document.querySelectorAll('.swipe-button').forEach(button => {
             button.addEventListener('click', function () {
                 var profileId = this.dataset.id;
-                fetch('swipe.php', {
+                fetch('inc/swipe.php', { // Adjust this path to the correct location
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

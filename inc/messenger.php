@@ -1,5 +1,9 @@
 <?php
 require 'config/messenger_config.php';
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 ?>
 
 <!DOCTYPE html>
@@ -17,7 +21,10 @@ require 'config/messenger_config.php';
             <label for="to_user_id" class="form-label">Select User to Chat With:</label>
             <select id="to_user_id" name="to_user_id" class="form-select mb-3">
                 <option value="">Select a user</option>
-                <?php foreach (fetchUsers() as $user): ?>
+                <?php
+                $users = fetchUsers();
+                error_log("Users in messenger.php: " . json_encode($users)); // Log the users
+                foreach ($users as $user): ?>
                     <option value='<?= $user['userID'] ?>'><?= $user['username'] ?></option>
                 <?php endforeach; ?>
             </select>
@@ -64,13 +71,33 @@ require 'config/messenger_config.php';
                 alert('Please select a user to chat with.');
                 return;
             }
+
             $.ajax({
-                url: 'config/post_message.php',
+                url: 'config/can_message.php',
                 method: 'POST',
-                data: {message: $('#message').val(), to_user_id: toUserId},
-                success: function() {
-                    $('#message').val('');
-                    fetchMessages(toUserId);
+                data: {to_user_id: toUserId},
+                success: function(data) {
+                    try {
+                        var response = typeof data === 'string' ? JSON.parse(data) : data;
+                        if (response.can_message) {
+                            $.ajax({
+                                url: 'config/post_message.php',
+                                method: 'POST',
+                                data: {message: $('#message').val(), to_user_id: toUserId},
+                                success: function() {
+                                    $('#message').val('');
+                                    fetchMessages(toUserId);
+                                }
+                            });
+                        } else {
+                            alert('You cannot message this user because you have not matched yet.');
+                        }
+                    } catch (e) {
+                        console.error("Invalid JSON response:", data);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error("AJAX error:", textStatus, errorThrown);
                 }
             });
         });
