@@ -52,6 +52,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
             $fileChecker = 0;
         }
 
+        $path = "../res/img/".$_FILES['profilePic']['name'];
+        $sql = "UPDATE users SET picturepath = ? WHERE username = ?";
+        $stmt = $conn->prepare($sql);
+
         if ($fileChecker == 0) {
             echo "Datei konnte nicht hochgeladen werden.";
           } else {
@@ -60,16 +64,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
             } else {
               $uploadError = $uploadError . "Datei konnte leider nicht hochgeladen werden.";
             }
-          }
-        $path = "../res/img/".$_FILES['profilePic']['name'];
-        $sql = "UPDATE users SET picturepath = ? WHERE username = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ss", $_FILES['profilePic']['name'], $username);
-        if ($stmt->execute()) {
-            echo "Daten erfolgreich eingefügt.";
-        } else {
-            echo "Fehler beim Einfügen der Daten: " . $stmt->error;
-        } 
+            $stmt->bind_param("ss", $_FILES['profilePic']['name'], $username);
+            if ($stmt->execute()) {
+                echo "Daten erfolgreich eingefügt.";
+            } else {
+                echo "Fehler beim Einfügen der Daten: " . $stmt->error;
+            } 
+        }
+
     }
     if(empty($_POST['profileNachname']) == false)
     {
