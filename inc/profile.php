@@ -63,19 +63,48 @@
     </div>
         <div class="col-md-6">
             <h2 class="p-3 mt-3" >Profil preview</h2>
-                <div class="card text-center text-bg-dark">
-                    <div class="card-header lead">
-                        <?php echo $row['username']?> | <?php echo $row['age']?> | <?php echo $row['major']?>
-                    </div>
-                    <img src="res/img/<?php echo $row['picturepath']?>" class="card-img-top img-fluid" alt="kein Profilbild">
+
+            <style>
+        .swiper-container {
+            width: 100%;
+            height: 100%;
+        }
+        .swiper-slide {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .card {
+            width: 300px;
+            height: 400px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .card-body {
+            padding: 15px;
+        }
+    </style>
+
+                <div class="swiper-slide">
+                <div class="card">
+                    <img src="res/img/<?php echo $row['picturepath']; ?>" alt="kein Profilbild">
                     <div class="card-body">
-                        <p class="card-text"><?php echo $row['profiletext']?></p>
-                     </div>
-                    <div class="card-body">
-                        <a href="#" class="btn btn-primary">Send Like</a>
-                        <a href="#" class="btn btn-primary">Go Next</a>
+                        <h5 class="card-title"><?php echo $row['username']; ?>, <?php echo $row['age']; ?></h5>
+                        <p class="card-text">Major: <?php echo $row['major']; ?></p>
+                        <p class="card-text"><?php echo $row['profiletext']; ?></p>
+                        <button class="btn btn-primary swipe-button">Send Like</button>
                     </div>
                 </div>
+                </div>
+
         </div>
 
     </div>
