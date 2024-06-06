@@ -54,6 +54,28 @@ body {
     }
 }
 
+/* Ensure the navbar items are aligned properly */
+.navbar .nav-item {
+    display: flex;
+    align-items: center;
+}
+
+.navbar .form-check {
+    margin-left: 1rem; /* Adjust the space to the left if needed */
+    display: flex;
+    align-items: center; /* Center the switch and label vertically */
+}
+
+.navbar .form-check-input {
+    margin-top: 0; /* Align vertically with the label */
+    margin-right: 0.5rem; /* Add space between the switch and the label */
+}
+
+.navbar .form-check-label {
+    margin-bottom: 0; /* Remove any bottom margin */
+}
+
+
 /*------------------------------------ Header end ------------------------------------ */
 
 
@@ -375,3 +397,83 @@ details[open] summary {
 }
 
 /*------------------------------------ Footer end ------------------------------------ */
+
+/*------------------------------------ Dark Mode start ------------------------------------ */
+
+/* Default styles and any existing styles you have */
+
+/* Dark mode styles */
+body.dark-mode {
+    background-color: #121212;
+    color: white;
+}
+
+body.dark-mode .navbar {
+    background-color: #333;
+    color: white;
+}
+
+body.dark-mode .navbar .nav-link {
+    color: white;
+}
+
+body.dark-mode .footer {
+    background-color: #333;
+    color: white;
+}
+
+body.dark-mode .card {
+    background-color: #333;
+    color: white;
+}
+
+body.dark-mode .card .btn {
+    background-color: #007bff;
+    color: white;
+}
+
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select {
+    background-color: #444;
+    color: white;
+    border: 1px solid #555;
+}
+
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder {
+    color: #aaa;
+}
+
+body.dark-mode .chat-messages {
+    background-color: #333;
+    color: white;
+    border: 1px solid #555;
+}
+
+/* Navbar link styles for both light and dark modes */
+.navbar .nav-link {
+    color: black; /* Default color for light mode */
+}
+
+.navbar .nav-link:focus,
+.navbar .nav-link:active {
+    color: black; /* Default color for light mode */
+    background-color: transparent; /* Prevent background color changes */
+    text-decoration: none; /* Remove underline */
+}
+
+/* Dark mode specific overrides */
+body.dark-mode .navbar .nav-link {
+    color: white; /* Color for dark mode */
+}
+
+body.dark-mode .navbar .nav-link:focus,
+body.dark-mode .navbar .nav-link:active {
+    color: white; /* Color for dark mode */
+    background-color: transparent; /* Prevent background color changes */
+    text-decoration: none; /* Remove underline */
+}
+
+
+/*------------------------------------ Dark Mode end ------------------------------------ */
