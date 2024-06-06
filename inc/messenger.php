@@ -31,7 +31,7 @@ error_reporting(E_ALL);
         </div>
         
         <h2>Chat history:</h2>
-        <div id="chat-messages" class="chat-messages p-3 bg-light" style="height: 300px; overflow-y: scroll;"></div>
+        <div id="chat-messages" class="chat-messages p-3" style="height: 300px; overflow-y: scroll;"></div>
 
         <form id="message-form" method="post" class="mb-3">
             <div class="mb-3">
