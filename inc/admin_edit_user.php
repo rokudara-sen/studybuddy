@@ -1,31 +1,34 @@
 <?php
 
-if (!($_SESSION['userrole'] === "admin")) {
-      header("Location: index.php?page=home");
-      exit();
+if ($_SESSION['userrole'] !== "admin") {
+    header("Location: index.php?page=home");
+    exit();
 }
 
 require 'config/dbaccess.php';
-
-
 
 // Überprüfe, ob die userId in der URL vorhanden ist
 if (isset($_GET['userID'])) {
     $userID = $_GET['userID'];
 
-    // Abfrage, um Benutzerdaten basierend auf der userId abzurufen
-    $sql = "SELECT * FROM users WHERE userID = $userID";
-    $result = $conn->query($sql);
+    // Vorbereitung der Abfrage, um Benutzerdaten basierend auf der userId abzurufen
+    $stmt = $conn->prepare("SELECT * FROM users WHERE userID = ?");
+    $stmt->bind_param("i", $userID);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
         $userData = $result->fetch_assoc();
         // Benutzerdaten sind jetzt im Array $userData verfügbar
     } else {
         echo "Benutzer nicht gefunden.";
+        $stmt->close();
         $conn->close();
         header("Location: index.php");
         exit(); // Beende das Skript, wenn der Benutzer nicht gefunden wurde
     }
+
+    $stmt->close();
 } else {
     echo "Ungültige Anfrage.";
     $conn->close();
@@ -34,8 +37,7 @@ if (isset($_GET['userID'])) {
 }
 ?>
 
-<div class="wrapper">   
-
+<div class="wrapper">
     <form class="p-3 mt-3" action="config/update_admin_user.php" method="post">
         <div class="form-field d-flex align-items-center">
             <span class="far fa-user">userId:</span>
@@ -61,7 +63,6 @@ if (isset($_GET['userID'])) {
             <span class="far fa-user">Rolle:</span>
             <input type="text" name="userTyp" id="userTyp" value="<?php echo $userData['userTyp']; ?>" required>
         </div>
-  
         <button class="btn mt-3" type="submit">Submit</button>
     </form>
 </div>

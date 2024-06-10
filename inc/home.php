@@ -35,6 +35,7 @@ if ($isLoggedIn) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>User Discovery</title>
@@ -44,11 +45,13 @@ if ($isLoggedIn) {
             width: 100%;
             height: 100%;
         }
+
         .swiper-slide {
             display: flex;
             justify-content: center;
             align-items: center;
         }
+
         .card {
             width: 300px;
             height: 400px;
@@ -58,39 +61,42 @@ if ($isLoggedIn) {
             overflow: hidden;
             position: relative;
         }
+
         .card img {
             width: 100%;
             height: 200px;
             object-fit: cover;
         }
+
         .card-body {
             padding: 15px;
         }
     </style>
 </head>
+
 <body>
-    <?php if ($isLoggedIn): ?>
-    <div class="swiper-container">
-        <div class="swiper-wrapper">
-            <?php foreach ($profiles as $profile): ?>
-            <div class="swiper-slide">
-                <div class="card">
-                    <img src="res/img/<?php echo $profile['picturepath']; ?>" alt="Profile Picture">
-                    <div class="card-body">
-                        <h5 class="card-title"><?php echo $profile['username']; ?>, <?php echo $profile['age']; ?></h5>
-                        <p class="card-text">Major: <?php echo $profile['major']; ?></p>
-                        <p class="card-text"><?php echo $profile['profiletext']; ?></p>
-                        <button class="btn btn-primary swipe-button" data-id="<?php echo $profile['userID']; ?>">Send Like</button>
+    <?php if ($isLoggedIn) : ?>
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <?php foreach ($profiles as $profile) : ?>
+                    <div class="swiper-slide">
+                        <div class="card">
+                            <img src="res/img/<?php echo $profile['picturepath']; ?>" alt="Profile Picture">
+                            <div class="card-body">
+                                <h5 class="card-title"><?php echo $profile['username']; ?>, <?php echo $profile['age']; ?></h5>
+                                <p class="card-text">Major: <?php echo $profile['major']; ?></p>
+                                <p class="card-text"><?php echo $profile['profiletext']; ?></p>
+                                <button class="btn btn-primary swipe-button" data-id="<?php echo $profile['userID']; ?>">Send Like</button>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                <?php endforeach; ?>
             </div>
-            <?php endforeach; ?>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
         </div>
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-    </div>
-    <?php else: ?>
-    <p>Please log in to see profiles.</p>
+    <?php else : ?>
+        <p>Please log in to see profiles.</p>
     <?php endif; ?>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script>
@@ -102,23 +108,26 @@ if ($isLoggedIn) {
         });
 
         document.querySelectorAll('.swipe-button').forEach(button => {
-            button.addEventListener('click', function () {
+            button.addEventListener('click', function() {
                 var profileId = this.dataset.id;
                 fetch('inc/swipe.php', { // Adjust this path to the correct location
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ id: profileId }),
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        swiper.removeSlide(swiper.activeIndex);
-                    }
-                });
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            id: profileId
+                        }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            swiper.removeSlide(swiper.activeIndex);
+                        }
+                    });
             });
         });
     </script>
 </body>
+
 </html>
