@@ -1,14 +1,26 @@
+<?php
+// Start der Sitzung
+require 'config/session.php';
+
+// Überprüfen, ob der Benutzer bereits angemeldet ist
+if (isset($_SESSION['userrole']) && $_SESSION['userrole'] !== "anonym") {
+    // Wenn ja, leiten Sie ihn zur Startseite weiter
+    header("Location: index.php?page=home");
+    exit();
+}
+?>
+
 <div class="registration-container">
     <div class="registration-box">
         <form class="p-3 mt-3" action="config/registration_insert.php" method="post">
 
             <div class="form-field d-flex align-items-center">
                 <span class="far fa-user"></span>
-                <input type="text" name="userVorname" id="userVorname" placeholder="Vorname" >
+                <input type="text" name="userVorname" id="userVorname" placeholder="Vorname">
             </div>
             <div class="form-field d-flex align-items-center">
                 <span class="far fa-user"></span>
-                <input type="text" name="userNachname" id="userNachname" placeholder="Nachname" >
+                <input type="text" name="userNachname" id="userNachname" placeholder="Nachname">
             </div>
 
             <div class="form-field d-flex align-items-center">
@@ -41,4 +53,3 @@
         </div>
     </div>
 </div>
-

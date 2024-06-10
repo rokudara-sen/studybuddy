@@ -1,119 +1,141 @@
 <?php
 require 'config/messenger_config.php';
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// Überprüfen, ob der Benutzer eingeloggt ist
+require 'config/session.php';
+if ($_SESSION['userrole'] !== "anonym") {
+    // Der Benutzer ist eingeloggt
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
 ?>
 
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <title>Messenger</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-</head>
-<body>
-    <div class="container mt-4">
-        <h1>Messenger</h1>
-        <div class="mb-3">
-            <label for="to_user_id" class="form-label">Select User to Chat With:</label>
-            <select id="to_user_id" name="to_user_id" class="form-select mb-3">
-                <option value="">Select a user</option>
-                <?php
-                $users = fetchUsers();
-                error_log("Users in messenger.php: " . json_encode($users)); // Log the users
-                foreach ($users as $user): ?>
-                    <option value='<?= $user['userID'] ?>'><?= $user['username'] ?></option>
-                <?php endforeach; ?>
-            </select>
-        </div>
-        
-        <h2>Chat history:</h2>
-        <div id="chat-messages" class="chat-messages p-3" style="height: 300px; overflow-y: scroll;"></div>
+    <!DOCTYPE html>
+    <html lang="de">
 
-        <form id="message-form" method="post" class="mb-3">
+    <head>
+        <meta charset="UTF-8">
+        <title>Messenger</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    </head>
+
+    <body>
+        <div class="container mt-4">
+            <h1>Messenger</h1>
             <div class="mb-3">
-                <label for="message" class="form-label">Message:</label>
-                <textarea id="message" name="message" rows="3" class="form-control"></textarea>
+                <label for="to_user_id" class="form-label">Select User to Chat With:</label>
+                <select id="to_user_id" name="to_user_id" class="form-select mb-3">
+                    <option value="">Select a user</option>
+                    <?php
+                    $users = fetchUsers();
+                    error_log("Users in messenger.php: " . json_encode($users)); // Log the users
+                    foreach ($users as $user) : ?>
+                        <option value='<?= $user['userID'] ?>'><?= $user['username'] ?></option>
+                    <?php endforeach; ?>
+                </select>
             </div>
-            <button type="submit" class="btn btn-primary">Send</button>
-        </form>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        function fetchMessages(toUserId) {
-            $.ajax({
-                url: 'config/fetch_messages.php',
-                method: 'GET',
-                data: {to_user_id: toUserId},
-                success: function(data) {
-                    $('#chat-messages').html(data);
-                    $('#chat-messages').scrollTop($('#chat-messages')[0].scrollHeight);
-                }
-            });
-        }
 
-        $('#to_user_id').change(function() {
-            var toUserId = $(this).val();
-            if (toUserId) {
-                fetchMessages(toUserId);
-            } else {
-                $('#chat-messages').html('');
-            }
-        });
+            <h2>Chat history:</h2>
+            <div id="chat-messages" class="chat-messages p-3" style="height: 300px; overflow-y: scroll;"></div>
 
-        $('#message-form').submit(function(e) {
-            e.preventDefault();
-            var toUserId = $('#to_user_id').val();
-            if (!toUserId) {
-                alert('Please select a user to chat with.');
-                return;
-            }
-
-            $.ajax({
-                url: 'config/can_message.php',
-                method: 'POST',
-                data: {to_user_id: toUserId},
-                success: function(data) {
-                    try {
-                        var response = typeof data === 'string' ? JSON.parse(data) : data;
-                        if (response.can_message) {
-                            $.ajax({
-                                url: 'config/post_message.php',
-                                method: 'POST',
-                                data: {message: $('#message').val(), to_user_id: toUserId},
-                                success: function() {
-                                    $('#message').val('');
-                                    fetchMessages(toUserId);
-                                }
-                            });
-                        } else {
-                            alert('You cannot message this user because you have not matched yet.');
-                        }
-                    } catch (e) {
-                        console.error("Invalid JSON response:", data);
+            <form id="message-form" method="post" class="mb-3">
+                <div class="mb-3">
+                    <label for="message" class="form-label">Message:</label>
+                    <textarea id="message" name="message" rows="3" class="form-control"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send</button>
+            </form>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            function fetchMessages(toUserId) {
+                $.ajax({
+                    url: 'config/fetch_messages.php',
+                    method: 'GET',
+                    data: {
+                        to_user_id: toUserId
+                    },
+                    success: function(data) {
+                        $('#chat-messages').html(data);
+                        $('#chat-messages').scrollTop($('#chat-messages')[0].scrollHeight);
                     }
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.error("AJAX error:", textStatus, errorThrown);
-                }
-            });
-        });
-
-        $(document).ready(function() {
-            var initialUserId = $('#to_user_id').val();
-            if (initialUserId) {
-                fetchMessages(initialUserId);
+                });
             }
-            setInterval(function() {
-                var toUserId = $('#to_user_id').val();
+
+            $('#to_user_id').change(function() {
+                var toUserId = $(this).val();
                 if (toUserId) {
                     fetchMessages(toUserId);
+                } else {
+                    $('#chat-messages').html('');
                 }
-            }, 3000);
-        });
-    </script>
-</body>
-</html>
+            });
+
+            $('#message-form').submit(function(e) {
+                e.preventDefault();
+                var toUserId = $('#to_user_id').val();
+                if (!toUserId) {
+                    alert('Please select a user to chat with.');
+                    return;
+                }
+
+                $.ajax({
+                    url: 'config/can_message.php',
+                    method: 'POST',
+                    data: {
+                        to_user_id: toUserId
+                    },
+                    success: function(data) {
+                        try {
+                            var response = typeof data === 'string' ? JSON.parse(data) : data;
+                            if (response.can_message) {
+                                $.ajax({
+                                    url: 'config/post_message.php',
+                                    method: 'POST',
+                                    data: {
+                                        message: $('#message').val(),
+                                        to_user_id: toUserId
+                                    },
+                                    success: function() {
+                                        $('#message').val('');
+                                        fetchMessages(toUserId);
+                                    }
+                                });
+                            } else {
+                                alert('You cannot message this user because you have not matched yet.');
+                            }
+                        } catch (e) {
+                            console.error("Invalid JSON response:", data);
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error("AJAX error:", textStatus, errorThrown);
+                    }
+                });
+            });
+
+            $(document).ready(function() {
+                var initialUserId = $('#to_user_id').val();
+                if (initialUserId) {
+                    fetchMessages(initialUserId);
+                }
+                setInterval(function() {
+                    var toUserId = $('#to_user_id').val();
+                    if (toUserId) {
+                        fetchMessages(toUserId);
+                    }
+                }, 3000);
+            });
+        </script>
+    </body>
+
+    </html>
+
+<?php
+} else {
+    // Der Benutzer ist nicht eingeloggt, leite ihn zur Login-Seite weiter
+    header("Location: index.php?page=login");
+    exit();
+}
+?>
