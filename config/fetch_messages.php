@@ -11,4 +11,3 @@ if (isset($_GET['to_user_id'])) {
         echo "</div>";
     }
 }
-?>

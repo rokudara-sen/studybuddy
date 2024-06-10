@@ -6,7 +6,8 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-function postMessage() {
+function postMessage()
+{
     global $conn;
     if (isset($_SESSION['userId'])) {
         $message = htmlspecialchars($_POST['message']);
@@ -18,7 +19,8 @@ function postMessage() {
     }
 }
 
-function fetchMessages($to_user_id) {
+function fetchMessages($to_user_id)
+{
     global $conn;
     $messages = [];
     if (isset($_SESSION['userId']) && $to_user_id) {
@@ -32,7 +34,8 @@ function fetchMessages($to_user_id) {
     return $messages;
 }
 
-function fetchUsers() {
+function fetchUsers()
+{
     global $conn;
     $users = [];
     if (isset($_SESSION['userId'])) {
@@ -73,4 +76,3 @@ function fetchUsers() {
     }
     return $users;
 }
-?>

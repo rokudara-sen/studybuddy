@@ -14,15 +14,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['reported_user']) && isset($_POST['reason'])) {
         $reportedUser = sanitizeInput($_POST['reported_user']);
         $reason = sanitizeInput($_POST['reason']);
-        
+
         // Validierung und Sicherheitsüberprüfung des gemeldeten Benutzers und des Grundes
-        
+
         // Fügen Sie den Benutzerbericht zur Datenbank hinzu
         $stmt = $conn->prepare("INSERT INTO report (reported_user, reported_by, reason) VALUES (?, ?, ?)");
         $stmt->bind_param("iis", $reportedUser, $_SESSION['userId'], $reason);
         $stmt->execute();
         $stmt->close();
-        
+
         // Weiterleitung oder Erfolgsmeldung
         header("Location: ../index.php?page=userreports");
         exit();
@@ -31,4 +31,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit("Please provide reported user and reason.");
     }
 }
-?>

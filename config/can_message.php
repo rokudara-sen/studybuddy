@@ -2,15 +2,16 @@
 require 'dbaccess.php';
 require 'session.php';
 
-// Enable error reporting
+// Fehlerberichterstattung aktivieren
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-function canMessage($user1, $user2) {
+function canMessage($user1, $user2)
+{
     global $conn;
 
-    // Check if both users have liked each other
+    // Überprüfen, ob beide Benutzer sich gegenseitig gematcht haben
     $query = "SELECT * FROM matches WHERE 
               (user_match_1 = ? AND user_match_2 = ? AND likes = 1) OR 
               (user_match_1 = ? AND user_match_2 = ? AND likes = 1)";
@@ -28,20 +29,26 @@ function canMessage($user1, $user2) {
 $response = ['can_message' => false];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $to_user_id = $_POST['to_user_id'];
-    $from_user_id = $_SESSION['userId'];
+    // Überprüfen, ob die erforderlichen POST-Daten vorhanden sind
+    if (isset($_POST['to_user_id']) && isset($_SESSION['userId'])) {
+        $to_user_id = $_POST['to_user_id'];
+        $from_user_id = $_SESSION['userId'];
 
-    try {
-        if (canMessage($from_user_id, $to_user_id)) {
-            $response['can_message'] = true;
+        try {
+            // Überprüfen, ob die Benutzer Nachrichten senden können
+            if (canMessage($from_user_id, $to_user_id)) {
+                $response['can_message'] = true;
+            }
+        } catch (Exception $e) {
+            $response['error'] = $e->getMessage();
         }
-    } catch (Exception $e) {
-        $response['error'] = $e->getMessage();
+    } else {
+        $response['error'] = 'Missing data';
     }
 } else {
     $response['error'] = 'Invalid request';
 }
 
+// Antwort im JSON-Format senden
 header('Content-Type: application/json');
 echo json_encode($response);
-?>
