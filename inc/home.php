@@ -87,6 +87,7 @@ if ($isLoggedIn) {
                                 <p class="card-text">Major: <?php echo $profile['major']; ?></p>
                                 <p class="card-text"><?php echo $profile['profiletext']; ?></p>
                                 <button class="btn btn-primary swipe-button" data-id="<?php echo $profile['userID']; ?>">Send Like</button>
+                                <a href="index.php?page=reportuser&userid=<?php echo $profile['userID']; ?>" class="btn btn-primary swipe-button">Report User</a>
                             </div>
                         </div>
                     </div>
