@@ -13,6 +13,9 @@ $ID = $_SESSION['userId'];
 // Abfrage, um alle Benutzer abzurufen
 $sqlUsers = "SELECT userID, username FROM users WHERE userID != $ID";
 $resultUsers = $conn->query($sqlUsers);
+
+// Get the reported user ID if it's set in the query string
+$reportedUserId = isset($_GET['userid']) ? intval($_GET['userid']) : null;
 ?>
 
 <!DOCTYPE html>
@@ -33,11 +36,12 @@ $resultUsers = $conn->query($sqlUsers);
             <div class="mb-3">
                 <label for="reported_user" class="form-label">Benutzer zum Melden auswählen:</label>
                 <select class="form-select" name="reported_user" id="reported_user" required>
-                    <option value="" selected disabled>Benutzer auswählen</option>
+                    <option value="" disabled>Benutzer auswählen</option>
                     <?php
                     // Anzeigen aller Benutzer im Dropdown-Menü
                     while ($rowUser = $resultUsers->fetch_assoc()) {
-                        echo "<option value='" . $rowUser["userID"] . "'>" . $rowUser["username"] . "</option>";
+                        $selected = $rowUser["userID"] == $reportedUserId ? "selected" : "";
+                        echo "<option value='" . $rowUser["userID"] . "' $selected>" . $rowUser["username"] . "</option>";
                     }
                     ?>
                 </select>
