@@ -100,44 +100,44 @@ body {
 }
 
 .login-prompt h1 {
-    font-size: 2.5em; /* Adjust size as needed */
-    color: white; /* Default color for dark mode */
+    font-size: 2.5em;
+    color: white;
 }
 
 .login-prompt .studybuddy {
     font-size: 3em;
     font-weight: bold;
-    color: #4CAF50; /* Green color in dark mode */
+    color: #4CAF50;
 }
 
 .login-prompt .login-instruction {
     font-size: 1.5em;
-    color: #ccc; /* Lighter gray for dark mode */
+    color: #ccc;
     margin-top: 20px;
 }
 
-/* Light Mode Text Colors */
+
 body:not(.dark-mode) .login-prompt h1,
 body:not(.dark-mode) .login-prompt .login-instruction {
-    color: black; /* Ensures visibility in light mode */
+    color: black;
 }
 
 body:not(.dark-mode) .login-prompt .studybuddy {
-    color: darkgreen; /* Dark green for visibility in light mode */
+    color: darkgreen;
 }
 
 @media (max-width: 768px) {
     .login-prompt h1,
     .login-prompt .studybuddy {
-        font-size: 1.5em; /* Adjust font size for smaller screens */
+        font-size: 1.5em;
     }
 
     .login-prompt .studybuddy {
-        font-size: 2em; /* Slightly larger to maintain emphasis */
+        font-size: 2em;
     }
 
     .login-prompt .login-instruction {
-        font-size: 1em; /* Smaller for compact display */
+        font-size: 1em;
     }
 }
 

@@ -5,7 +5,7 @@ require 'config/dbaccess.php';
 require 'config/session.php'; // Starts session
 
 // Check if the user is logged in and set the user ID
-if ($_SESSION['userrole'] == "guest" ||  $_SESSION['userrole'] == "admin") {
+if ($_SESSION['userrole'] == "guest" || $_SESSION['userrole'] == "admin") {
     $userId = $_SESSION['userId'];
     $isLoggedIn = true;
 } else {
@@ -75,62 +75,65 @@ if ($isLoggedIn) {
 </head>
 
 <body>
-    <?php if ($isLoggedIn) : ?>
-        <div class="swiper-container">
-            <div class="swiper-wrapper">
-                <?php foreach ($profiles as $profile) : ?>
-                    <div class="swiper-slide">
-                        <div class="card">
-                            <img src="res/img/<?php echo $profile['picturepath']; ?>" alt="Profile Picture">
-                            <div class="card-body">
-                                <h5 class="card-title"><?php echo $profile['username']; ?>, <?php echo $profile['age']; ?></h5>
-                                <p class="card-text">Major: <?php echo $profile['major']; ?></p>
-                                <p class="card-text"><?php echo $profile['profiletext']; ?></p>
-                                <button class="btn btn-primary swipe-button" data-id="<?php echo $profile['userID']; ?>">Send Like</button>
-                            </div>
+<?php if ($isLoggedIn) : ?>
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <?php foreach ($profiles as $profile) : ?>
+                <div class="swiper-slide">
+                    <div class="card">
+                        <img src="res/img/<?php echo $profile['picturepath']; ?>" alt="Profile Picture">
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $profile['username']; ?>
+                                , <?php echo $profile['age']; ?></h5>
+                            <p class="card-text">Major: <?php echo $profile['major']; ?></p>
+                            <p class="card-text"><?php echo $profile['profiletext']; ?></p>
+                            <button class="btn btn-primary swipe-button" data-id="<?php echo $profile['userID']; ?>">
+                                Send Like
+                            </button>
                         </div>
                     </div>
-                <?php endforeach; ?>
-            </div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
+                </div>
+            <?php endforeach; ?>
         </div>
-    <?php else : ?>
-        <div class="login-prompt">
-            <h1>Welcome to <span class="studybuddy">StudyBuddy</span></h1>
-            <p class="login-instruction">Please sign in to continue.</p>
-        </div>
-    <?php endif; ?>
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script>
-        var swiper = new Swiper('.swiper-container', {
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-        });
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+<?php else : ?>
+    <div class="login-prompt">
+        <h1>Welcome to <span class="studybuddy">StudyBuddy</span></h1>
+        <p class="login-instruction">Please sign in to continue.</p>
+    </div>
+<?php endif; ?>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
 
-        document.querySelectorAll('.swipe-button').forEach(button => {
-            button.addEventListener('click', function() {
-                var profileId = this.dataset.id;
-                fetch('inc/swipe.php', { // Adjust this path to the correct location
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            id: profileId
-                        }),
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            swiper.removeSlide(swiper.activeIndex);
-                        }
-                    });
-            });
+    document.querySelectorAll('.swipe-button').forEach(button => {
+        button.addEventListener('click', function () {
+            var profileId = this.dataset.id;
+            fetch('inc/swipe.php', { // Adjust this path to the correct location
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    id: profileId
+                }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        swiper.removeSlide(swiper.activeIndex);
+                    }
+                });
         });
-    </script>
+    });
+</script>
 </body>
 
 </html>
