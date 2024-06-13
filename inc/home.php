@@ -75,21 +75,22 @@ if ($isLoggedIn) {
 </head>
 
 <body>
-
-    <?php if ($isLoggedIn) : ?>
-        <div class="swiper-container">
-            <div class="swiper-wrapper">
-                <?php foreach ($profiles as $profile) : ?>
-                    <div class="swiper-slide">
-                        <div class="card">
-                            <img src="res/img/<?php echo $profile['picturepath']; ?>" alt="Profile Picture">
-                            <div class="card-body">
-                                <h5 class="card-title"><?php echo $profile['username']; ?>, <?php echo $profile['age']; ?></h5>
-                                <p class="card-text">Major: <?php echo $profile['major']; ?></p>
-                                <p class="card-text"><?php echo $profile['profiletext']; ?></p>
-                                <button class="btn btn-primary swipe-button" data-id="<?php echo $profile['userID']; ?>">Send Like</button>
-                                <a href="index.php?page=reportuser&userid=<?php echo $profile['userID']; ?>" class="btn btn-primary swipe-button">Report User</a>
-                            </div>
+<?php if ($isLoggedIn) : ?>
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <?php foreach ($profiles as $profile) : ?>
+                <div class="swiper-slide">
+                    <div class="card">
+                        <img src="res/img/<?php echo $profile['picturepath']; ?>" alt="Profile Picture">
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $profile['username']; ?>
+                                , <?php echo $profile['age']; ?></h5>
+                            <p class="card-text">Major: <?php echo $profile['major']; ?></p>
+                            <p class="card-text"><?php echo $profile['profiletext']; ?></p>
+                            <button class="btn btn-primary swipe-button" data-id="<?php echo $profile['userID']; ?>">
+                                Send Like
+                            </button>
+                            <a href="index.php?page=reportuser&userid=<?php echo $profile['userID']; ?>" class="btn btn-danger">Report User</a>
                         </div>
                     </div>
                 </div>
