@@ -62,7 +62,6 @@
         const toggle = document.getElementById('dark-mode-toggle');
         const body = document.body;
 
-        // Check if dark mode is already enabled
         if (localStorage.getItem('dark-mode') === 'enabled') {
             body.classList.add('dark-mode');
             toggle.checked = true;

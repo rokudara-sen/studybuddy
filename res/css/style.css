@@ -1,18 +1,28 @@
 /*------------------------------------ General start ------------------------------------ */
+
+#content, .page-container, .main-content {
+    overflow-x: hidden;
+/ / Prevent horizontal scroll overflow-y: auto;
+/ / Allow vertical scroll if needed
+}
+
 html, body {
     height: 100%;
-    margin: 0;
+/ / This might be causing layout issues, consider using min-height
 }
 
 body {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    min-height: 100vh;
+/ / Ensures full viewport height
 }
 
 #content {
     flex-grow: 1;
+/ / Ensures content fills available space, pushing footer to bottom
 }
+
 
 /*------------------------------------ General end ------------------------------------ */
 
@@ -54,25 +64,24 @@ body {
     }
 }
 
-/* Ensure the navbar items are aligned properly */
 .navbar .nav-item {
     display: flex;
     align-items: center;
 }
 
 .navbar .form-check {
-    margin-left: 1rem; /* Adjust the space to the left if needed */
+    margin-left: 1rem;
     display: flex;
-    align-items: center; /* Center the switch and label vertically */
+    align-items: center;
 }
 
 .navbar .form-check-input {
-    margin-top: 0; /* Align vertically with the label */
-    margin-right: 0.5rem; /* Add space between the switch and the label */
+    margin-top: 0;
+    margin-right: 0.5rem;
 }
 
 .navbar .form-check-label {
-    margin-bottom: 0; /* Remove any bottom margin */
+    margin-bottom: 0;
 }
 
 
@@ -80,6 +89,59 @@ body {
 
 
 /*------------------------------------ Main start ------------------------------------ */
+
+.login-prompt {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+}
+
+.login-prompt h1 {
+    font-size: 2.5em;
+    color: white;
+}
+
+.login-prompt .studybuddy {
+    font-size: 3em;
+    font-weight: bold;
+    color: #4CAF50;
+}
+
+.login-prompt .login-instruction {
+    font-size: 1.5em;
+    color: #ccc;
+    margin-top: 20px;
+}
+
+
+body:not(.dark-mode) .login-prompt h1,
+body:not(.dark-mode) .login-prompt .login-instruction {
+    color: black;
+}
+
+body:not(.dark-mode) .login-prompt .studybuddy {
+    color: darkgreen;
+}
+
+@media (max-width: 768px) {
+    .login-prompt h1,
+    .login-prompt .studybuddy {
+        font-size: 1.5em;
+    }
+
+    .login-prompt .studybuddy {
+        font-size: 2em;
+    }
+
+    .login-prompt .login-instruction {
+        font-size: 1em;
+    }
+}
+
+
 .center-container {
     display: flex;
     justify-content: center;
@@ -133,7 +195,7 @@ body {
     border-width: 1.5px;
 }
 
-#profileButton, #changePassword{
+#profileButton, #changePassword {
     background-color: #333;
     border-color: #555;
     border-width: 1.5px;
@@ -141,7 +203,7 @@ body {
     width: 25%;
 }
 
-#newPassword:focus, #confirmPassword:focus, #currentPassword:focus, #profileName:focus, #profileMajor:focus, #profileAge:focus, #profileText:focus, #profilePic:focus, #profileVorname:focus, #profileNachname:focus, #profileEmail:focus{
+#newPassword:focus, #confirmPassword:focus, #currentPassword:focus, #profileName:focus, #profileMajor:focus, #profileAge:focus, #profileText:focus, #profilePic:focus, #profileVorname:focus, #profileNachname:focus, #profileEmail:focus {
     border-color: #777;
     box-shadow: 0 0 0 0.25rem rgba(102, 102, 102, 0.25);
 }
@@ -340,6 +402,7 @@ body {
     font-size: 24px;
     margin-bottom: 15px;
 }
+
 /*------------------------------------ admin overview end------------------------------------ */
 
 /*------------------------------------ Footer start ------------------------------------ */
@@ -400,9 +463,6 @@ details[open] summary {
 
 /*------------------------------------ Dark Mode start ------------------------------------ */
 
-/* Default styles and any existing styles you have */
-
-/* Dark mode styles */
 body.dark-mode {
     background-color: #121212;
     color: white;
@@ -451,29 +511,103 @@ body.dark-mode .chat-messages {
     border: 1px solid #555;
 }
 
-/* Navbar link styles for both light and dark modes */
 .navbar .nav-link {
-    color: black; /* Default color for light mode */
+    color: black;
 }
 
 .navbar .nav-link:focus,
 .navbar .nav-link:active {
-    color: black; /* Default color for light mode */
-    background-color: transparent; /* Prevent background color changes */
-    text-decoration: none; /* Remove underline */
+    color: black;
+    background-color: transparent;
+    text-decoration: none;
 }
 
 /* Dark mode specific overrides */
 body.dark-mode .navbar .nav-link {
-    color: white; /* Color for dark mode */
+    color: white;
 }
 
 body.dark-mode .navbar .nav-link:focus,
 body.dark-mode .navbar .nav-link:active {
-    color: white; /* Color for dark mode */
-    background-color: transparent; /* Prevent background color changes */
-    text-decoration: none; /* Remove underline */
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
 }
 
-
 /*------------------------------------ Dark Mode end ------------------------------------ */
+
+/*------------------------------------ Registration Dark Mode Start ------------------------------------ */
+
+body.dark-mode .registration-container {
+    background-color: #2a2a2a;
+}
+
+body.dark-mode .registration-box {
+    background-color: #333;
+    color: white;
+}
+
+body.dark-mode .form-field input,
+body.dark-mode .form-field select,
+body.dark-mode .form-field textarea {
+    background-color: #444;
+    color: white;
+    border: 1px solid #666;
+}
+
+body.dark-mode .btn-register {
+    background-color: #0C6EFD;
+    color: white;
+}
+
+body.dark-mode .btn-register:hover {
+    background-color: #0056b3;
+}
+
+/*------------------------------------ Registration Dark Mode End ------------------------------------ */
+
+/*------------------------------------ Login Dark Mode start ------------------------------------ */
+
+body.dark-mode .login-container {
+    background-color: #121212;
+}
+
+body.dark-mode .login-box {
+    background-color: #333;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+}
+
+body.dark-mode .form-field,
+body.dark-mode .form-field input {
+    background-color: #444;
+    color: white;
+    border: 1px solid #555;
+}
+
+body.dark-mode .form-field input::placeholder {
+    color: #bbb;
+}
+
+body.dark-mode .btn-login {
+    background-color: #0C6EFD;
+    color: white;
+}
+
+body.dark-mode .btn-login:hover {
+    background-color: #0056b3;
+}
+
+body.dark-mode .login-message,
+body.dark-mode .success,
+body.dark-mode .error {
+    color: #ccc;
+}
+
+body.dark-mode .success {
+    color: #4CAF50;
+}
+
+/*------------------------------------ Login Dark Mode end ------------------------------------ */
+
+

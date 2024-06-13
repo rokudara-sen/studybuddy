@@ -1,10 +1,8 @@
 <?php
-// Start der Sitzung
+
 require 'config/session.php';
 
-// Überprüfen, ob der Benutzer bereits angemeldet ist
 if (isset($_SESSION['userrole']) && $_SESSION['userrole'] !== "anonym") {
-    // Wenn ja, leiten Sie ihn zur Startseite weiter
     header("Location: index.php?page=home");
     exit();
 }
@@ -34,11 +32,13 @@ if (isset($_SESSION['userrole']) && $_SESSION['userrole'] !== "anonym") {
 
             <div class="form-field d-flex align-items-center">
                 <span class="fas fa-key"></span>
-                <input type="password" id="userPassword" name="userPassword" placeholder="Passwort" minlength="6" maxlength="64" required>
+                <input type="password" id="userPassword" name="userPassword" placeholder="Passwort" minlength="6"
+                       maxlength="64" required>
             </div>
             <div class="form-field d-flex align-items-center">
                 <span class="fas fa-key"></span>
-                <input type="password" id="passwort_wiederholen" name="passwort_wiederholen" placeholder="Passwort wiederholen" minlength="6" maxlength="64" required>
+                <input type="password" id="passwort_wiederholen" name="passwort_wiederholen"
+                       placeholder="Passwort wiederholen" minlength="6" maxlength="64" required>
             </div>
 
             <button class="btn btn-register" type="submit">Submit</button>

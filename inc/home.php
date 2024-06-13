@@ -5,7 +5,7 @@ require 'config/dbaccess.php';
 require 'config/session.php'; // Starts session
 
 // Check if the user is logged in and set the user ID
-if ($_SESSION['userrole'] == "guest" ||  $_SESSION['userrole'] == "admin") {
+if ($_SESSION['userrole'] == "guest" || $_SESSION['userrole'] == "admin") {
     $userId = $_SESSION['userId'];
     $isLoggedIn = true;
 } else {
@@ -75,6 +75,7 @@ if ($isLoggedIn) {
 </head>
 
 <body>
+
     <?php if ($isLoggedIn) : ?>
         <div class="swiper-container">
             <div class="swiper-wrapper">
@@ -91,44 +92,48 @@ if ($isLoggedIn) {
                             </div>
                         </div>
                     </div>
-                <?php endforeach; ?>
-            </div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
+                </div>
+            <?php endforeach; ?>
         </div>
-    <?php else : ?>
-        <p>Please log in to see profiles.</p>
-    <?php endif; ?>
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script>
-        var swiper = new Swiper('.swiper-container', {
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-        });
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+<?php else : ?>
+    <div class="login-prompt">
+        <h1>Welcome to <span class="studybuddy">StudyBuddy</span></h1>
+        <p class="login-instruction">Please sign in to continue.</p>
+    </div>
+<?php endif; ?>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
 
-        document.querySelectorAll('.swipe-button').forEach(button => {
-            button.addEventListener('click', function() {
-                var profileId = this.dataset.id;
-                fetch('inc/swipe.php', { // Adjust this path to the correct location
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            id: profileId
-                        }),
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            swiper.removeSlide(swiper.activeIndex);
-                        }
-                    });
-            });
+    document.querySelectorAll('.swipe-button').forEach(button => {
+        button.addEventListener('click', function () {
+            var profileId = this.dataset.id;
+            fetch('inc/swipe.php', { // Adjust this path to the correct location
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    id: profileId
+                }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        swiper.removeSlide(swiper.activeIndex);
+                    }
+                });
         });
-    </script>
+    });
+</script>
 </body>
 
 </html>
