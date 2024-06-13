@@ -96,7 +96,10 @@ if ($isLoggedIn) {
             <div class="swiper-button-prev"></div>
         </div>
     <?php else : ?>
-        <p>Please log in to see profiles.</p>
+        <div class="login-prompt">
+            <h1>Welcome to <span class="studybuddy">StudyBuddy</span></h1>
+            <p class="login-instruction">Please sign in to continue.</p>
+        </div>
     <?php endif; ?>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script>

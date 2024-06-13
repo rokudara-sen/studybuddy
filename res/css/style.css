@@ -89,6 +89,59 @@ body {
 
 
 /*------------------------------------ Main start ------------------------------------ */
+
+.login-prompt {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+}
+
+.login-prompt h1 {
+    font-size: 2.5em; /* Adjust size as needed */
+    color: white; /* Default color for dark mode */
+}
+
+.login-prompt .studybuddy {
+    font-size: 3em;
+    font-weight: bold;
+    color: #4CAF50; /* Green color in dark mode */
+}
+
+.login-prompt .login-instruction {
+    font-size: 1.5em;
+    color: #ccc; /* Lighter gray for dark mode */
+    margin-top: 20px;
+}
+
+/* Light Mode Text Colors */
+body:not(.dark-mode) .login-prompt h1,
+body:not(.dark-mode) .login-prompt .login-instruction {
+    color: black; /* Ensures visibility in light mode */
+}
+
+body:not(.dark-mode) .login-prompt .studybuddy {
+    color: darkgreen; /* Dark green for visibility in light mode */
+}
+
+@media (max-width: 768px) {
+    .login-prompt h1,
+    .login-prompt .studybuddy {
+        font-size: 1.5em; /* Adjust font size for smaller screens */
+    }
+
+    .login-prompt .studybuddy {
+        font-size: 2em; /* Slightly larger to maintain emphasis */
+    }
+
+    .login-prompt .login-instruction {
+        font-size: 1em; /* Smaller for compact display */
+    }
+}
+
+
 .center-container {
     display: flex;
     justify-content: center;
