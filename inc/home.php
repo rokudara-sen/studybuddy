@@ -83,7 +83,6 @@ if ($isLoggedIn) {
             display: flex;
             justify-content: space-between;
             margin-top: 15px;
-            background: #fff;
         }
 
         .btn {

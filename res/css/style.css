@@ -610,5 +610,31 @@ body.dark-mode .success {
 
 /*------------------------------------ Login Dark Mode end ------------------------------------ */
 
+/*------------------------------------ Dark Mode for Reports Table start ------------------------------------ */
+
+body.dark-mode .container-admin-overview {
+    background-color: #333;
+    color: white;
+}
+
+body.dark-mode .table-overview {
+    background-color: #444;
+    color: white;
+    border-color: #555;
+}
+
+body.dark-mode .th-overview,
+body.dark-mode .td-overview {
+    border: 1px solid #555;
+    background-color: #444;
+    color: white;
+}
+
+body.dark-mode .th-overview {
+    background-color: #555;
+}
+
+/*------------------------------------ Dark Mode for Reports Table end ------------------------------------ */
+
 
 
