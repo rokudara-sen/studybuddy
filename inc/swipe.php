@@ -10,25 +10,15 @@ if (isset($input['id'])) {
     $userId = $_SESSION['userId'];
 
     if ($userId && $profileId) {
-        // Überprüfen, ob bereits ein Match-Eintrag vorhanden ist
-        $checkMatchQuery = "SELECT * FROM matches WHERE (user_match_1 = ? AND user_match_2 = ?) OR (user_match_1 = ? AND user_match_2 = ?)";
+        // Überprüfen, ob bereits ein Match-Eintrag vorhanden ist, bei dem der aktuelle Benutzer user_match_1 ist und der gelikte Benutzer user_match_2
+        $checkMatchQuery = "SELECT * FROM matches WHERE user_match_1 = ? AND user_match_2 = ?";
         $stmt = $conn->prepare($checkMatchQuery);
-        $stmt->bind_param("iiii", $userId, $profileId, $profileId, $userId);
+        $stmt->bind_param("ii", $userId, $profileId);
         $stmt->execute();
         $result = $stmt->get_result();
 
-        if ($result->num_rows > 0) {
-            // Wenn ein Match-Eintrag vorhanden ist, aktualisiere ihn
-            $updateMatchQuery = "UPDATE matches SET likes = CASE
-                                 WHEN user_match_1 = ? THEN 1
-                                 WHEN user_match_2 = ? THEN 1
-                                 END
-                                 WHERE (user_match_1 = ? AND user_match_2 = ?) OR (user_match_1 = ? AND user_match_2 = ?)";
-            $updateStmt = $conn->prepare($updateMatchQuery);
-            $updateStmt->bind_param("iiiiii", $userId, $userId, $userId, $profileId, $profileId, $userId);
-            $updateStmt->execute();
-        } else {
-            // Wenn kein Match-Eintrag vorhanden ist, erstelle einen neuen
+        if ($result->num_rows === 0) {
+            // Wenn kein solcher Eintrag vorhanden ist, erstelle einen neuen
             $insertMatchQuery = "INSERT INTO matches (user_match_1, user_match_2, likes) VALUES (?, ?, 1)";
             $insertStmt = $conn->prepare($insertMatchQuery);
             $insertStmt->bind_param("ii", $userId, $profileId);
@@ -49,3 +39,4 @@ if (isset($input['id'])) {
 } else {
     echo json_encode(['success' => false, 'error' => 'Ungültige Eingabe']);
 }
+?>
