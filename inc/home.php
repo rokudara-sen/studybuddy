@@ -54,12 +54,12 @@ if ($isLoggedIn) {
 
         .card {
             width: 300px;
-            height: 400px;
             background: #fff;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
             overflow: hidden;
-            position: relative;
         }
 
         .card img {
@@ -69,7 +69,37 @@ if ($isLoggedIn) {
         }
 
         .card-body {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
             padding: 15px;
+        }
+
+        .card-text {
+            flex-grow: 1;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        .btn {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
         }
     </style>
 </head>
@@ -87,10 +117,12 @@ if ($isLoggedIn) {
                                 , <?php echo $profile['age']; ?></h5>
                             <p class="card-text">Major: <?php echo $profile['major']; ?></p>
                             <p class="card-text"><?php echo $profile['profiletext']; ?></p>
-                            <button class="btn btn-primary swipe-button" data-id="<?php echo $profile['userID']; ?>">
-                                Send Like
-                            </button>
-                            <a href="index.php?page=reportuser&userid=<?php echo $profile['userID']; ?>" class="btn btn-danger">Report User</a>
+                            <div class="card-footer">
+                                <button class="btn btn-primary swipe-button" data-id="<?php echo $profile['userID']; ?>">
+                                    Send Like
+                                </button>
+                                <a href="index.php?page=reportuser&userid=<?php echo $profile['userID']; ?>" class="btn btn-danger">Report User</a>
+                            </div>
                         </div>
                     </div>
                 </div>
